@@ -1,0 +1,8 @@
+plugin:
+  folder: ./agwPluginsAndLogsFolder/plugins
+spring:
+  application:
+    name: autumn-gateway
+  profiles:
+    active: test
+

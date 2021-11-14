@@ -12,6 +12,14 @@
     <artifactId>autumn-gateway-starter</artifactId>
 
     <dependencies>
+
+
+        <dependency>
+            <groupId>com.autumn</groupId>
+            <artifactId>autumn-gateway-core</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
         <dependency>
             <groupId>com.alibaba</groupId>

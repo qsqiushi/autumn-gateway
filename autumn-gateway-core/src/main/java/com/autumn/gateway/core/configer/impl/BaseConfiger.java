@@ -10,7 +10,7 @@ import java.util.Optional;
 /**
  * 基础配置
  *
- * @author sundc 2021/7/9
+ * @author qius 2021/7/9
  */
 @Slf4j
 public class BaseConfiger implements IConfiger {

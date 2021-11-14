@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 伺服服务管理器
  *
- * @author sundc 2021/7/9
+ * @author qius 2021/7/9
  */
 public interface IServerManager {
   /**

@@ -3,7 +3,7 @@ package com.autumn.gateway.core.constant;
 /**
  * 系统常量
  *
- * @author sundc 2021/7/3
+ * @author qius 2021/7/3
  */
 public class SystemConstant {
 

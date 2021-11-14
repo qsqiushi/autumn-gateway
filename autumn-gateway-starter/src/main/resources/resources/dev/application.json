@@ -1,0 +1,110 @@
+{
+  "sysConfig": {
+    "verticles": [
+      "com.qm.agw.starter.vertx.verticle.ApiSyncVerticle",
+      "com.qm.agw.starter.vertx.verticle.PluginLoadVerticle"
+    ]
+  },
+  "componentPolicy": [
+    {
+      "componentId": "cluster",
+      "param": {
+        "zookeeperHosts": "127.0.0.1",
+        "rootPath": "io.vertx",
+        "retry": {
+          "initialSleepTime": 3000,
+          "maxTimes": 3
+        }
+      }
+    },
+    {
+      "componentId": "redisPolicyProviderProvider",
+      "param": {
+        "redis": {
+          "nodes": [
+            "10.133.92.157:6379"
+          ],
+          "password": "redis@2021",
+          "database": 0,
+          "timeout": 5000,
+          "lettuce": {
+            "maxTotal": 8,
+            "maxIdle": 8,
+            "maxWait": -1,
+            "minIdle": 0
+          }
+        }
+      }
+    },
+    {
+      "componentId": "apiDiscoverRedis",
+      "param": {
+        "redis": {
+          "nodes": [
+            "10.133.92.157:6379"
+          ],
+          "password": "redis@2021",
+          "database": 0,
+          "timeout": 5000,
+          "lettuce": {
+            "maxTotal": 8,
+            "maxIdle": 8,
+            "maxWait": -1,
+            "minIdle": 0
+          }
+        }
+      }
+    },
+    {
+      "componentId": "apiRegister",
+      "param": {
+        "register": "map"
+      }
+    },
+    {
+      "componentId": "vertxServer",
+      "param": {
+        "port": "8081"
+      }
+    },
+    {
+      "componentId": "userDefinedRouter",
+      "param": {
+        "router": [
+          {
+            "url": "/oauth/get/token",
+            "clz": "com.qm.agw.pluggable.user.defined.server.router.handler.GetTokenHandler"
+          }
+        ]
+      }
+    },
+    {
+      "componentId": "cache",
+      "param": {
+        "redis": {
+          "nodes": [
+            "10.133.92.157:6379"
+          ],
+          "password": "redis@2021",
+          "database": 0,
+          "timeout": 5000,
+          "lettuce": {
+            "maxTotal": 8,
+            "maxIdle": 8,
+            "maxWait": -1,
+            "minIdle": 0
+          }
+        }
+      }
+    },
+    {
+      "componentId": "syncZk",
+      "param": {
+        "zkServer": "127.0.0.1:2181",
+        "sessionTimeOut": 10000,
+        "path": "/agw/sync",
+        "interval": 50000
+      }
+    }
+  ]
+}

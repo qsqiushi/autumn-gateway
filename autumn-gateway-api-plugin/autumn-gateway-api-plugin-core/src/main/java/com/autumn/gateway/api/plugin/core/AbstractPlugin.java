@@ -89,7 +89,7 @@ public abstract class AbstractPlugin implements IPlugin {
    * @param: pluginName 插件名称用于记录日志
    * @param: canDoNext true 正常处理，false为下一个插件不进行业务处理
    * @param: simpleExecutionContext
-   * @author JiangLei
+   * @author qius
    * @date 2021/8/24 10:16
    */
   public final void throwPluginException(

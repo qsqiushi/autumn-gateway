@@ -11,6 +11,10 @@ import org.springframework.util.MultiValueMap;
  */
 public class UriUtil {
 
+  private UriUtil() {
+    throw new IllegalStateException("Utility class");
+  }
+
   private static final char FRAGMENT_SEPARATOR_CHAR = '#';
   private static final char QUERYPARAM_SEPARATOR_CHAR1 = '&';
   private static final char QUERYPARAM_SEPARATOR_CHAR2 = ';';

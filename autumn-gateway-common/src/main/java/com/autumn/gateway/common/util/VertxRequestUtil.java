@@ -20,7 +20,7 @@ public class VertxRequestUtil {
    *
    * @return java.util.Map<java.lang.String, java.lang.String> @Description:
    * @param: multiMap
-   * @author JiangLei
+   * @author qius
    * @date 2021/9/1 9:11
    */
   public static Map<String, Object> vertxMultiMapToSingleValueMap(MultiMap multiMap) {
@@ -41,7 +41,7 @@ public class VertxRequestUtil {
    *
    * @param: multiMap
    * @return java.util.Map<java.lang.String,java.lang.Object>
-   * @author JiangLei
+   * @author qius
    * @date 2021/9/3 14:33
    */
   public static Map<String, String> vertxMultiMapToSingleStringMap(MultiMap multiMap) {

@@ -3,7 +3,7 @@ package com.autumn.gateway.core.constant;
 /**
  * 格式化方面的常量
  *
- * @author sundc 2021/7/9
+ * @author qius 2021/7/9
  */
 public class PatternConst {
   /** 日期格式化样式 */

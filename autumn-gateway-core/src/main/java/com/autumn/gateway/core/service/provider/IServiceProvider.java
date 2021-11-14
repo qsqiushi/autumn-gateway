@@ -6,7 +6,7 @@ import io.vertx.core.json.JsonObject;
 /**
  * 策略供应者接口
  *
- * @author sundc 2021/7/9
+ * @author qius 2021/7/9
  */
 public interface IServiceProvider {
 

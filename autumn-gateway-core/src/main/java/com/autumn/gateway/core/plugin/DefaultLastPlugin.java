@@ -44,7 +44,7 @@ public class DefaultLastPlugin extends AbstractPlugin {
     // TODO  没有响应处理插件而引入的临时代码
     if (!simpleExecutionContext.getRoutingContext().response().ended()) {
 
-      // @updator JiangLei 检查是否有异常未处理，直接进行响应
+      // @updator qius 检查是否有异常未处理，直接进行响应
       ArrayList<Map<String, Object>> exList =
           (ArrayList<Map<String, Object>>)
               simpleExecutionContext

@@ -3,7 +3,7 @@ package com.autumn.gateway.core.configer;
 /**
  * 系统配置接口
  *
- * @author sundc 2021/7/9
+ * @author qius 2021/7/9
  */
 public interface IConfiger {
   /**
