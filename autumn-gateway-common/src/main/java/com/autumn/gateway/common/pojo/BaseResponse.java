@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * @program  autumn-gateway
+ * @program autumn-gateway
  * @description
  * @author qiushi
  * @since 2021-07-29:14:08

@@ -3,7 +3,7 @@ package com.autumn.gateway.api.plugin.core.factory;
 import org.pf4j.PluginWrapper;
 
 /**
- * @program  autumn-gateway
+ * @program autumn-gateway
  * @description
  * @author qiushi
  * @since 2021-06-23:10:30

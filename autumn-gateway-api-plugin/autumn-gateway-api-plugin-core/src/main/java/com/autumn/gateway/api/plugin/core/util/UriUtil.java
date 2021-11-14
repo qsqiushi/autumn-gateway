@@ -4,10 +4,10 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 /**
- * @program  autumn-gateway
+ * @program autumn-gateway
  * @description
  * @author qiushi
-* @since 2021-07-08:14:08
+ * @since 2021-07-08:14:08
  */
 public class UriUtil {
 

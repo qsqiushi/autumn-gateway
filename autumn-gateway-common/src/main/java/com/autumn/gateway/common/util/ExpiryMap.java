@@ -5,22 +5,13 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author qiushi
- * @program  autumn-gateway
+ * @program autumn-gateway
  * @description 有效期MAP
  * @since create 2021-09-15 13:21
  */
 public class ExpiryMap<K, V> implements Map<K, V> {
-  private boolean isRefresh = false;
   private static ConcurrentHashMap workMap = new ConcurrentHashMap();
   private static ConcurrentHashMap<Object, Long> expiryMap = new ConcurrentHashMap<>();
-
-  public ExpiryMap() {
-    super();
-  }
-
-  public ExpiryMap(boolean isRefresh) {
-    this.isRefresh = isRefresh;
-  }
 
   /** 定时清除失效key */
   static {
@@ -43,6 +34,16 @@ public class ExpiryMap<K, V> implements Map<K, V> {
             60 * 1000); // 每隔1分钟启动一次
   }
 
+  private boolean isRefresh = false;
+
+  public ExpiryMap() {
+    super();
+  }
+
+  public ExpiryMap(boolean isRefresh) {
+    this.isRefresh = isRefresh;
+  }
+
   private static void removeInValidKeys() {
     expiryMap
         .keySet()
@@ -54,6 +55,23 @@ public class ExpiryMap<K, V> implements Map<K, V> {
               }
             });
     System.gc();
+  }
+
+  public static void main(String[] args) {
+    ExpiryMap expiryMap = new ExpiryMap();
+    expiryMap.put("key1", "value1", 100);
+    expiryMap.put("key2", "value2", 15);
+    expiryMap.put("key3", "value3", 5);
+    System.out.println(expiryMap.size());
+    try {
+      Thread.sleep(10 * 1000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+    System.out.println(expiryMap.size());
+    System.out.println(expiryMap.keySet());
+    System.out.println(expiryMap.values());
+    System.out.println(expiryMap.entrySet());
   }
 
   /**
@@ -153,22 +171,5 @@ public class ExpiryMap<K, V> implements Map<K, V> {
   public Set<Entry<K, V>> entrySet() {
     removeInValidKeys();
     return workMap.entrySet();
-  }
-
-  public static void main(String[] args) {
-    ExpiryMap expiryMap = new ExpiryMap();
-    expiryMap.put("key1", "value1", 100);
-    expiryMap.put("key2", "value2", 15);
-    expiryMap.put("key3", "value3", 5);
-    System.out.println(expiryMap.size());
-    try {
-      Thread.sleep(10 * 1000);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
-    System.out.println(expiryMap.size());
-    System.out.println(expiryMap.keySet());
-    System.out.println(expiryMap.values());
-    System.out.println(expiryMap.entrySet());
   }
 }

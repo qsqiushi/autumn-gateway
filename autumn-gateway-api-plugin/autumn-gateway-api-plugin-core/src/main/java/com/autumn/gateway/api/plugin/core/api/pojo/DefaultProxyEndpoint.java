@@ -4,7 +4,7 @@ import com.autumn.gateway.api.plugin.core.enums.EndpointTypeEnum;
 
 /**
  * @author qiushi
- * @program  autumn-gateway
+ * @program autumn-gateway
  * @description 默认后台服务节点 预留给API注册与发现插件
  * @since create 2021-08-26:13:30
  */

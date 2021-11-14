@@ -16,7 +16,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * @program  autumn-gateway
+ * @program autumn-gateway
  * @description 可执行上下文
  * @author qiushi
  * @since 2021-07-07:14:27
@@ -119,31 +119,6 @@ public class SimpleExecutionContext {
   /** 状态 真个链路是否有错误 */
   private Boolean hasError = false;
 
-  /**
-   * <上下文中是否遇到错误>
-   *
-   * @param
-   * @return : java.lang.Boolean
-   * @author qiushi
-   * @updator qiushi
-   * @since 2021/9/7 09:23
-   */
-  public Boolean getHasError() {
-    return hasError;
-  }
-  /**
-   * <上下文中遇到错误>
-   *
-   * @param
-   * @return : void
-   * @author qiushi
-   * @updator qiushi
-   * @since 2021/9/7 09:24
-   */
-  public void errorEncountered() {
-    this.hasError = Boolean.TRUE;
-  }
-
   public SimpleExecutionContext(RoutingContext routingContext, Api api) {
     this.routingContext = routingContext;
     // API id
@@ -161,6 +136,32 @@ public class SimpleExecutionContext {
     this.uploadFiles = routingContext.fileUploads();
 
     this.formAttributes = routingContext.request().formAttributes();
+  }
+
+  /**
+   * <上下文中是否遇到错误>
+   *
+   * @param
+   * @return : java.lang.Boolean
+   * @author qiushi
+   * @updator qiushi
+   * @since 2021/9/7 09:23
+   */
+  public Boolean getHasError() {
+    return hasError;
+  }
+
+  /**
+   * <上下文中遇到错误>
+   *
+   * @param
+   * @return : void
+   * @author qiushi
+   * @updator qiushi
+   * @since 2021/9/7 09:24
+   */
+  public void errorEncountered() {
+    this.hasError = Boolean.TRUE;
   }
 
   private class AttributeMap extends HashMap<String, Object> {

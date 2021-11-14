@@ -5,7 +5,7 @@ import com.autumn.gateway.api.plugin.core.api.handler.ReactorHandler;
 import com.autumn.gateway.api.plugin.core.enums.ApiPluginTypeEnum;
 
 /**
- * @program  autumn-gateway
+ * @program autumn-gateway
  * @description
  * @author qiushi
  * @since 2021-07-01:16:05

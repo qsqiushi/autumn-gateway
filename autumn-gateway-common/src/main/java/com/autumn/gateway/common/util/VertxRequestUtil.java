@@ -25,7 +25,7 @@ public class VertxRequestUtil {
    */
   public static Map<String, Object> vertxMultiMapToSingleValueMap(MultiMap multiMap) {
     if (null != multiMap && multiMap.isEmpty() == false) {
-      Map<String, Object> map = new HashMap<String, Object>();
+      Map<String, Object> map = new HashMap<>();
       Set<String> names = multiMap.names();
       names.forEach(
           key -> {
@@ -34,7 +34,7 @@ public class VertxRequestUtil {
           });
       return map;
     }
-    return new HashMap<String, Object>();
+    return new HashMap<>();
   }
   /**
    * 转换成单值 String Map 对于多值的话，List<String> 转换成JSON String @Description:

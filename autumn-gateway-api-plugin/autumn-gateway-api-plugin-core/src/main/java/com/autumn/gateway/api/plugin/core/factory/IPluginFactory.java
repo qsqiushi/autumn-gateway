@@ -5,7 +5,7 @@ import com.autumn.gateway.api.plugin.core.pojo.PluginParam;
 import org.pf4j.PluginWrapper;
 
 /**
- * @program  autumn-gateway
+ * @program autumn-gateway
  * @description 插件工厂
  * @author qiushi
  * @since 2021-07-01 16:14

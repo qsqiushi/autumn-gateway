@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @program  autumn-gateway
+ * @program autumn-gateway
  * @description
  * @author qiushi
  * @since 2021-06-24:19:28

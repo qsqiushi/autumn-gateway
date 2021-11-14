@@ -13,7 +13,7 @@ import java.util.function.Function;
 
 /**
  * @author qiushi
- * @program  autumn-gateway
+ * @program autumn-gateway
  * @description
  * @since create 2021-09-13:13:37
  */

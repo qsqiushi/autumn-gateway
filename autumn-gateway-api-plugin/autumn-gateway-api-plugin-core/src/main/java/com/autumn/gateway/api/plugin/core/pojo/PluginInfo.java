@@ -4,10 +4,10 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 /**
- * @program  autumn-gateway
+ * @program autumn-gateway
  * @description
  * @author qiushi
-* @since 2021-07-07:10:25
+ * @since 2021-07-07:10:25
  */
 @Data
 @Accessors(chain = true)

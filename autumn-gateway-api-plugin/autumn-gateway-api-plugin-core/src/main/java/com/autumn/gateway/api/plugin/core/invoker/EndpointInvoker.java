@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * @author qiushi
- * @program  autumn-gateway
+ * @program autumn-gateway
  * @description
  * @since create 2021-08-25:15:47
  */
