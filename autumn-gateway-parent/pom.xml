@@ -37,7 +37,7 @@
 
         <guava.version>30.1.1-jre</guava.version>
         <lombok.version>1.18.10</lombok.version>
-        <vertx.version>4.1.4</vertx.version>
+        <vertx.version>4.2.1</vertx.version>
         <!-- redis -->
         <redisson-spring-boot-starter.version>3.11.0</redisson-spring-boot-starter.version>
 
