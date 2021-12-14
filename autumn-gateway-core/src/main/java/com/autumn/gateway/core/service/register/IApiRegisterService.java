@@ -4,8 +4,6 @@ import com.autumn.gateway.api.plugin.core.api.pojo.Api;
 import com.autumn.gateway.core.service.IService;
 import io.vertx.core.http.HttpServerRequest;
 
-import java.util.List;
-
 /**
  * @program qm-gateway
  * @description
@@ -52,6 +50,12 @@ public interface IApiRegisterService extends IService {
    * @since 2021/7/22 13:37
    */
   Api getMatch(HttpServerRequest httpServerRequest);
-
-  void setApis(List<Api> apiList);
+  /**
+   * <初始化API map>
+   *
+   * @author qiushi
+   * @updator qiushi
+   * @since 2021/12/14 19:18
+   */
+  void initApiMap();
 }

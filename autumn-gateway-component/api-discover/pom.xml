@@ -3,38 +3,30 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>autumn-gateway-parent</artifactId>
+        <artifactId>autumn-gateway-component</artifactId>
         <groupId>com.autumn</groupId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <packaging>pom</packaging>
-    <modules>
-        <module>server-vertx</module>
-        <module>data-redis</module>
-        <module>api-register</module>
-        <module>api-discover</module>
-    </modules>
-
-    <artifactId>autumn-gateway-component</artifactId>
+    <artifactId>api-discover</artifactId>
+    <dependencies>
+        <dependency>
+            <groupId>com.autumn</groupId>
+            <artifactId>autumn-gateway-core</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.autumn</groupId>
+            <artifactId>data-redis</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
 
-
-    <dependencies>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.autumn</groupId>
-            <artifactId>autumn-gateway-common</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-        </dependency>
-    </dependencies>
 </project>

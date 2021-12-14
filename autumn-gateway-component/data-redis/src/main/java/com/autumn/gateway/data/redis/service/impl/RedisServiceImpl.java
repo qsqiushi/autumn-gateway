@@ -636,4 +636,18 @@ public class RedisServiceImpl<T> implements RedisService<T> {
       }
     }
   }
+
+  /**
+   * <批量获取key>
+   *
+   * @param prefix 前缀
+   * @return java.util.Set<java.lang.String>
+   * @author qiushi
+   * @updator qiushi
+   * @since 2021/12/14 18:56
+   */
+  @Override
+  public Set<String> getKeys(String prefix) {
+    return redisTemplate.keys(prefix);
+  }
 }

@@ -15,19 +15,25 @@ import java.util.Set;
  */
 public interface RedisService<T> {
   /**
+   * redis 设置值
+   *
    * @param key key
    * @param value value
-   * @return boolean
+   * @return boolean 结果
    */
   boolean set(String key, T value);
 
   /**
+   * 获取值
+   *
    * @param key key
    * @return T
    */
   T get(String key);
 
   /**
+   * 执行脚本
+   *
    * @param script script
    * @param keys keys
    * @param args args
@@ -330,10 +336,21 @@ public interface RedisService<T> {
   /**
    * <批量删除key>
    *
-   * @param pattern
+   * @param pattern 参数
    * @author qius
    * @updator qius
    * @since 2020/11/3 14:22
    */
   void deleteBatch(String pattern);
+
+  /**
+   * <批量获取key>
+   *
+   * @param prefix 前缀
+   * @return java.util.Set<java.lang.String>
+   * @author qiushi
+   * @updator qiushi
+   * @since 2021/12/14 18:56
+   */
+  Set<String> getKeys(String prefix);
 }
