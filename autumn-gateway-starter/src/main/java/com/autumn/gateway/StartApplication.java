@@ -34,7 +34,7 @@ import org.springframework.context.annotation.FilterType;
     excludeFilters =
         @ComponentScan.Filter(
             type = FilterType.REGEX,
-            pattern = {"com.autumn.gateway.starter.api.*", "com.autumn.gateway.starter.biz.*"}))
+            pattern = {"com.autumn.gateway.starter.*"}))
 public class StartApplication {
 
   public static void main(String[] args) {

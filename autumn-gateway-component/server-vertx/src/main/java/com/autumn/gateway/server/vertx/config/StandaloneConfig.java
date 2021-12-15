@@ -22,10 +22,10 @@ public class StandaloneConfig implements InitializingBean {
 
   @Resource private StartVerticle startVerticle;
 
+  @Resource private Vertx vertx;
+
   @Override
   public void afterPropertiesSet() {
-
-    Vertx vertx = Vertx.currentContext().owner();
 
     DeploymentOptions deploymentOptions =
         new DeploymentOptions()

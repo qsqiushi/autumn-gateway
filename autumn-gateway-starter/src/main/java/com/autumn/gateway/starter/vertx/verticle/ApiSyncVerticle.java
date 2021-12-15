@@ -8,7 +8,6 @@ import com.autumn.gateway.util.ApplicationContextUtil;
 import io.vertx.core.AbstractVerticle;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -34,10 +33,10 @@ public class ApiSyncVerticle extends AbstractVerticle {
     super.start();
     // 获取所有API
     Collection<Api> apiList = apiDiscovererService.apis();
-    apiRegisterService.setApis(new ArrayList<>(apiList));
+    // apiRegisterService.initApiMap(new ArrayList<>(apiList));
     // 注册API
     for (Api api : apiList) {
-      apiRegisterService.register(api);
+      // apiRegisterService.register(api);
     }
     log.info(
         "ApiSyncVerticle work has been finished,it took [{}] ms",

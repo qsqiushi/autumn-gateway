@@ -1,4 +1,4 @@
-package com.autumn.gateway.component.api.discover;
+package com.autumn.gateway.component.api.discover.service.impl;
 
 import com.autumn.gateway.api.plugin.core.api.pojo.Api;
 import com.autumn.gateway.api.plugin.core.api.pojo.PluginConfigInfo;

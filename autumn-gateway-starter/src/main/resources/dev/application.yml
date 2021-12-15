@@ -5,4 +5,9 @@ spring:
     name: autumn-gateway
   profiles:
     active: test
+  redis:
+    host: 10.133.92.157
+    password: redis@2021
+    database: 7
+
 

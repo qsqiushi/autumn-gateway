@@ -1,4 +1,4 @@
-package com.autumn.gateway.component.api.register;
+package com.autumn.gateway.component.api.register.service.impl;
 
 import com.autumn.gateway.api.plugin.core.api.pojo.Api;
 import com.autumn.gateway.common.util.UrlMatcherUtil;
