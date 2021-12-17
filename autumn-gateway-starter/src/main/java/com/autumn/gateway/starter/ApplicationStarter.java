@@ -25,6 +25,7 @@ import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -53,10 +54,9 @@ public class ApplicationStarter implements ApplicationRunner {
    * SpringBoot 启动时运行
    *
    * @param args 运行参数
-   * @throws Exception 运行异常
    */
   @Override
-  public void run(ApplicationArguments args) throws Exception {
+  public void run(ApplicationArguments args) {
     // 启动服务
     this.start(SystemStartTypeEnum.NORMAL);
   }
@@ -86,8 +86,6 @@ public class ApplicationStarter implements ApplicationRunner {
             event -> {
               log.debug("system starting with {} mode...", startType);
               this.setRunState(SystemRunStateEnum.STARTING);
-              // 加载可插拔组件  参数从全局策略获取
-              pluginManagerService.loadComponent();
               // 启动业务容器
               startBiz();
               // 加载verticles 成功后启动服务
@@ -201,7 +199,7 @@ public class ApplicationStarter implements ApplicationRunner {
    *
    * @return 伺服服务实例
    */
-  private Future<List<IServer>> startServers() {
+  private Future<Collection<IServer>> startServers() {
     return serverManager.startServers();
   }
 

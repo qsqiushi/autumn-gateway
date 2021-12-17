@@ -3,7 +3,6 @@ package com.autumn.gateway.service;
 import com.autumn.gateway.api.plugin.core.IPlugin;
 import com.autumn.gateway.api.plugin.core.pojo.PluginParam;
 import com.autumn.gateway.core.pojo.sync.Pf4jPluginInfo;
-import io.vertx.core.Future;
 
 /** @author qiushi */
 public interface IPf4jPluginManagerService {
@@ -18,16 +17,6 @@ public interface IPf4jPluginManagerService {
    * @since 2021/7/6 09:44
    */
   void loadApiPlugin();
-
-  /**
-   * <加载组件>
-   *
-   * @return : void
-   * @author qiushi
-   * @updator qiushi
-   * @since 2021/7/22 15:45
-   */
-  void loadComponent();
 
   /**
    * <是否加载了插件>
@@ -52,17 +41,6 @@ public interface IPf4jPluginManagerService {
   void reloadApiPlugin(Pf4jPluginInfo info);
 
   /**
-   * <重新加载系统组件>
-   *
-   * @param info
-   * @return : void
-   * @author qiushi
-   * @updator qiushi
-   * @since 2021/7/6 13:34
-   */
-  Future<Void> reloadComponent(Pf4jPluginInfo info);
-
-  /**
    * <卸载插件>
    *
    * @param info
@@ -72,17 +50,6 @@ public interface IPf4jPluginManagerService {
    * @since 2021/7/6 09:44
    */
   void unloadApiPlugin(Pf4jPluginInfo info);
-
-  /**
-   * <卸载系统组件>
-   *
-   * @param info
-   * @return : void
-   * @author qiushi
-   * @updator qiushi
-   * @since 2021/7/6 13:34
-   */
-  void unloadComponent(Pf4jPluginInfo info);
 
   /**
    * <创建插件>

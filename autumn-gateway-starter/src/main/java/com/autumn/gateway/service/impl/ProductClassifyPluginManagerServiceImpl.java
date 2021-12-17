@@ -1,4 +1,4 @@
-package com.autumn.gateway.starter.biz.service.impl;
+package com.autumn.gateway.service.impl;
 
 import com.autumn.gateway.core.service.plugin.AbstractProductClassifyPluginManagerService;
 import com.autumn.gateway.core.service.policy.provider.IBaseBizPolicyProvider;

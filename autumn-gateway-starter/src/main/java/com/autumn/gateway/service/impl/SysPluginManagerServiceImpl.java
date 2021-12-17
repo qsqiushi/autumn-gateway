@@ -1,9 +1,9 @@
-package com.autumn.gateway.starter.biz.service.impl;
+package com.autumn.gateway.service.impl;
 
-import com.autumn.gateway.core.service.plugin.AbstractAppPluginManagerService;
-import com.autumn.gateway.core.service.policy.provider.IAppPolicyProvider;
+import com.autumn.gateway.core.service.plugin.AbstractSysPluginManagerService;
 import com.autumn.gateway.core.service.policy.provider.IBaseBizPolicyProvider;
 import com.autumn.gateway.core.service.policy.provider.IPluginPolicyProvider;
+import com.autumn.gateway.core.service.policy.provider.ISysPolicyProvider;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
@@ -16,13 +16,13 @@ import javax.annotation.Resource;
  * @since create 2021-08-16:16:43
  */
 @Service
-public class AppPluginManagerServiceImpl extends AbstractAppPluginManagerService {
+public class SysPluginManagerServiceImpl extends AbstractSysPluginManagerService {
 
-  @Resource private ApplicationContext applicationContext;
-
-  @Resource private IAppPolicyProvider appPolicyProvider;
+  @Resource private ISysPolicyProvider sysPolicyProvider;
 
   @Resource private IPluginPolicyProvider pluginPolicyProvider;
+
+  @Resource private ApplicationContext applicationContext;
 
   /**
    * <获得策略提供者>
@@ -34,7 +34,7 @@ public class AppPluginManagerServiceImpl extends AbstractAppPluginManagerService
    */
   @Override
   public IBaseBizPolicyProvider getPolicyProvider() {
-    return appPolicyProvider;
+    return sysPolicyProvider;
   }
 
   /**

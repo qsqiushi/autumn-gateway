@@ -8,7 +8,7 @@ import com.autumn.gateway.api.plugin.core.invoker.EndpointInvoker;
 import com.autumn.gateway.core.handler.ReactorHandlerManager;
 import com.autumn.gateway.core.processor.chain.DefaultPluginChain;
 import com.autumn.gateway.core.processor.provider.PluginChainProvider;
-import com.autumn.gateway.starter.biz.service.IApiContextManagerService;
+import com.autumn.gateway.service.IApiContextManagerService;
 import io.vertx.ext.web.RoutingContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

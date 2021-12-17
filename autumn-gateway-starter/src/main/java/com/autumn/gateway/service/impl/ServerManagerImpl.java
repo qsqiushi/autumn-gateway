@@ -15,8 +15,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+import java.util.Map;
 
 /**
  * @program autumn-gateway
@@ -30,28 +30,12 @@ public class ServerManagerImpl implements IServerManager {
 
   @Resource private ApplicationContext applicationContext;
 
-  private List<IServer> servers;
-
-  /**
-   * <新增服务>
-   *
-   * @param server 服务
-   * @return : java.util.List<com.qm.agw.core.service.server.IServer>
-   * @author qiushi
-   * @updator qiushi
-   * @since 2021/8/10 10:30
-   */
   @Override
-  public List<IServer> addServer(IServer server) {
-    if (servers == null) {
-      servers = new ArrayList<>();
-    }
-    servers.add(server);
-    return servers;
-  }
+  public Future<Collection<IServer>> startServers() {
 
-  @Override
-  public Future<List<IServer>> startServers() {
+    Map<String, IServer> serversMap = applicationContext.getBeansOfType(IServer.class);
+
+    Collection<IServer> servers = serversMap.values();
 
     return Future.future(
         event -> {
@@ -74,29 +58,29 @@ public class ServerManagerImpl implements IServerManager {
             return;
           }
 
-          if (applicationContext.getBeansOfType(IAppPolicyProvider.class).size() <= 0) {
-            log.error("缺少应用策略实例组件");
-            event.fail("缺少应用策略实例组件");
-            return;
-          }
-
-          if (applicationContext.getBeansOfType(ISysPolicyProvider.class).size() <= 0) {
-            log.error("缺少系统策略实例组件");
-            event.fail("缺少系统策略实例组件");
-            return;
-          }
-
-          if (applicationContext.getBeansOfType(IProductPolicyProvider.class).size() <= 0) {
-            log.error("缺少产品策略实例组件");
-            event.fail("缺少产品策略实例组件");
-            return;
-          }
-
-          if (applicationContext.getBeansOfType(IProductClassifyPolicyProvider.class).size() <= 0) {
-            log.error("缺少产品分类策略实例组件");
-            event.fail("缺少产品分类策略实例组件");
-            return;
-          }
+//          if (applicationContext.getBeansOfType(IAppPolicyProvider.class).size() <= 0) {
+//            log.error("缺少应用策略实例组件");
+//            event.fail("缺少应用策略实例组件");
+//            return;
+//          }
+//
+//          if (applicationContext.getBeansOfType(ISysPolicyProvider.class).size() <= 0) {
+//            log.error("缺少系统策略实例组件");
+//            event.fail("缺少系统策略实例组件");
+//            return;
+//          }
+//
+//          if (applicationContext.getBeansOfType(IProductPolicyProvider.class).size() <= 0) {
+//            log.error("缺少产品策略实例组件");
+//            event.fail("缺少产品策略实例组件");
+//            return;
+//          }
+//
+//          if (applicationContext.getBeansOfType(IProductClassifyPolicyProvider.class).size() <= 0) {
+//            log.error("缺少产品分类策略实例组件");
+//            event.fail("缺少产品分类策略实例组件");
+//            return;
+//          }
 
           if (servers.size() <= 0) {
             log.error("缺少核心服务组件");
@@ -118,6 +102,11 @@ public class ServerManagerImpl implements IServerManager {
 
   @Override
   public Future<Void> stopServers() {
+
+    Map<String, IServer> serversMap = applicationContext.getBeansOfType(IServer.class);
+
+    Collection<IServer> servers = serversMap.values();
+
     return Future.future(
         event -> {
           for (IServer server : servers) {
@@ -129,37 +118,7 @@ public class ServerManagerImpl implements IServerManager {
 
   @Override
   public Integer getSize() {
-    if (servers == null) {
-      servers = new ArrayList<>();
-    }
-    return servers.size();
-  }
-
-  /**
-   * <移除server>
-   *
-   * @param server
-   * @return void
-   * @author qiushi
-   * @updator qiushi
-   * @since 2021/9/9 15:05
-   */
-  @Override
-  public void remove(IServer server) {
-    servers.remove(server);
-  }
-
-  /**
-   * <移除所有server>
-   *
-   * @return : void
-   * @author qiushi
-   * @updator qiushi
-   * @since 2021/8/24 14:41
-   */
-  @Override
-  public void removeAll() {
-    servers = null;
-    servers = new ArrayList<>();
+    Map<String, IServer> serversMap = applicationContext.getBeansOfType(IServer.class);
+    return serversMap.size();
   }
 }

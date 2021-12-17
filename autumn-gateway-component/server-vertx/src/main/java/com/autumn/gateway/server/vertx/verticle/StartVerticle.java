@@ -61,7 +61,7 @@ public class StartVerticle extends AbstractVerticle {
         .requestHandler(router::handle)
         .exceptionHandler(
             ex -> {
-              ex.printStackTrace();
+              log.error("处理时出现异常", ex);
             })
         .listen(
             port,

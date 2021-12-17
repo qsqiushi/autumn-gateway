@@ -1,4 +1,4 @@
-package com.autumn.gateway.starter.biz.service;
+package com.autumn.gateway.service;
 
 import com.autumn.gateway.api.plugin.core.api.pojo.Api;
 import org.springframework.context.support.AbstractApplicationContext;

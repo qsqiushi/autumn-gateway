@@ -1,4 +1,4 @@
-package com.autumn.gateway.starter.biz.config;
+package com.autumn.gateway.config;
 
 import com.autumn.gateway.api.plugin.core.api.pojo.Api;
 import com.autumn.gateway.core.enums.Pf4jPluginTypeEnum;
@@ -8,8 +8,8 @@ import com.autumn.gateway.core.pojo.sync.Pf4jPluginInfo;
 import com.autumn.gateway.core.server.IServerManager;
 import com.autumn.gateway.core.service.discover.IApiDiscovererService;
 import com.autumn.gateway.core.service.register.IApiRegisterService;
+import com.autumn.gateway.service.IApiContextManagerService;
 import com.autumn.gateway.service.IPf4jPluginManagerService;
-import com.autumn.gateway.starter.biz.service.IApiContextManagerService;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Future;
 import io.vertx.core.Handler;
@@ -108,7 +108,6 @@ public class BizApplicationStarter implements InitializingBean {
                                           pluginInfo.setPluginPath(
                                               "/Users/qiushi/ideaProject/qm/agw/agwPluginsAndLogsFolder/plugins/qm-agw-component-server-router-1.0.0-SNAPSHOT");
                                           pluginInfo.setType(Pf4jPluginTypeEnum.COMPONENT_PLUGIN);
-                                          pf4jPluginManagerService.reloadComponent(pluginInfo);
                                         })
                                     // 若加载组件成功
                                     .onSuccess(event -> serverManager.startServers());

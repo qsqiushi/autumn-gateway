@@ -1,4 +1,4 @@
-package com.autumn.gateway.starter.biz.factory;
+package com.autumn.gateway.factory;
 
 import com.autumn.gateway.api.plugin.core.api.handler.IApiHandler;
 import com.autumn.gateway.api.plugin.core.api.pojo.Api;
@@ -6,7 +6,7 @@ import com.autumn.gateway.api.plugin.core.factory.AbstractPluginFactory;
 import com.autumn.gateway.core.classloader.ReactorHandlerClassLoader;
 import com.autumn.gateway.core.handler.ReactorHandlerManager;
 import com.autumn.gateway.core.processor.provider.PluginChainProvider;
-import com.autumn.gateway.starter.biz.service.IApiContextManagerService;
+import com.autumn.gateway.service.IApiContextManagerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -61,7 +61,6 @@ public class ApiContextHandlerFactory {
 
     Map<String, AbstractPluginFactory> apiPluginFactoryMap =
         bizApplicationContext.getBeansOfType(AbstractPluginFactory.class);
-
     /**
      * 扫描API相关包 此处是因为考虑到重复插件、不同顺序、不同配置 所以没有通过注册的形式实现插件实例
      * apiPluginFactoryMap.values().forEach(factory -> context.register(factory.getPluginClass()))

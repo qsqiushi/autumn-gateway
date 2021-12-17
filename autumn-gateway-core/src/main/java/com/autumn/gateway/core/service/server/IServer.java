@@ -1,7 +1,6 @@
 package com.autumn.gateway.core.service.server;
 
 import com.autumn.gateway.core.service.IService;
-import io.vertx.core.json.JsonObject;
 
 /**
  * 伺服服务接口
@@ -19,17 +18,6 @@ public interface IServer extends IService {
    * @since 2021/8/23 09:51
    */
   boolean isStarted();
-
-  /**
-   * <>
-   *
-   * @param serverPolicy
-   * @return : IServer
-   * @author qiushi
-   * @updator qiushi
-   * @since 2021/8/13 13:50
-   */
-  IServer init(JsonObject serverPolicy);
 
   /**
    * <启动服务>
