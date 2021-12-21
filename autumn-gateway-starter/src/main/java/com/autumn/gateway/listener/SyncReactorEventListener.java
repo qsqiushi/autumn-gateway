@@ -106,10 +106,6 @@ public class SyncReactorEventListener implements EventListener<SyncReactorEvent,
         serverManager.startServers();
         break;
 
-      case RELOAD_COMPONENT:
-        reloadComponent(event);
-
-        break;
       case RELOAD_API_PLUGIN:
         reloadApiPlugin(event);
 
@@ -117,36 +113,6 @@ public class SyncReactorEventListener implements EventListener<SyncReactorEvent,
       default:
         log.error("Unknown SyncReactorEvent");
     }
-  }
-  /**
-   * <重新加载组件>
-   *
-   * @param event
-   * @return void
-   * @author qiushi
-   * @updator qiushi
-   * @since 2021/9/9 13:49
-   */
-  private void reloadComponent(Event<SyncReactorEvent, SyncMsg> event) {
-
-    Pf4jPluginInfo pluginInfo = event.content().getPf4jPluginInfo();
-
-    serverManager
-        .stopServers()
-        // 若停止服务成功 重新加载组件
-        .onSuccess(
-            stopEvent -> {
-              pf4jPluginManagerService
-                  .reloadComponent(pluginInfo)
-                  .onSuccess(
-                      reloadComponentEvent -> {
-                        // 若加载组件成功
-                        serverManager
-                            .startServers()
-                            .onSuccess(event.getSuccessHandler())
-                            .onFailure(event.getFailureHandler());
-                      });
-            });
   }
 
   /**

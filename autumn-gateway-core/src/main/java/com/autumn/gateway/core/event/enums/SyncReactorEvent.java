@@ -28,8 +28,6 @@ public enum SyncReactorEvent {
 
   /** 启动服务 */
   START_SERVERS,
-  /** 重新加载组件 */
-  RELOAD_COMPONENT,
   /** 重新加载API插件 */
   RELOAD_API_PLUGIN,
   ;

@@ -1,6 +1,5 @@
 package com.autumn.gateway.config;
 
-import com.autumn.gateway.core.service.cluster.IVertxManagerService;
 import io.vertx.core.Vertx;
 import io.vertx.servicediscovery.ServiceDiscovery;
 import io.vertx.servicediscovery.ServiceDiscoveryOptions;
@@ -20,13 +19,7 @@ import javax.annotation.Resource;
 @Component
 public class DiscoveryConfig {
 
-  @Resource private IVertxManagerService vertxManagerService;
-
-  @Bean
-  private Vertx getVertx() {
-    return vertxManagerService.getVertx();
-  }
-
+  @Resource private Vertx vertx;
   /**
    * <预留 Vert.x 提供了一个服务发现的基础组件，用来发布和发现各种类型的资源，比如服务代理、HTTP端点（endpoint）、数据源（data source）等等。>
    *
@@ -38,12 +31,8 @@ public class DiscoveryConfig {
   @Bean
   public ServiceDiscovery get() {
 
-    Vertx vertx = vertxManagerService.getVertx();
-
-    ServiceDiscovery discovery = ServiceDiscovery.create(vertx);
-
     // Customize the configuration
-    discovery =
+    ServiceDiscovery discovery =
         ServiceDiscovery.create(
             vertx,
             new ServiceDiscoveryOptions()
