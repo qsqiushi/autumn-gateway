@@ -21,7 +21,7 @@ public class ApiHandlerProcessServiceImpl implements IApiHandlerProcessService {
   /**
    * <计算正在处理API的数量>
    *
-   * @param api
+   * @param api api
    * @return int
    * @author qiushi
    * @updator qiushi

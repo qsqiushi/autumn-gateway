@@ -1,7 +1,6 @@
 package com.autumn.gateway.starter;
 
 import com.autumn.gateway.config.ApplicationConfiger;
-import com.autumn.gateway.core.classloader.ReactorHandlerClassLoader;
 import com.autumn.gateway.core.enums.SystemRunStateEnum;
 import com.autumn.gateway.core.enums.SystemStartTypeEnum;
 import com.autumn.gateway.core.enums.SystemStopTypeEnum;
@@ -20,8 +19,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -86,8 +83,6 @@ public class ApplicationStarter implements ApplicationRunner {
             event -> {
               log.debug("system starting with {} mode...", startType);
               this.setRunState(SystemRunStateEnum.STARTING);
-              // 启动业务容器
-              startBiz();
               // 加载verticles 成功后启动服务
               loadVerticlesThenStartServers(startType);
               ISyncService syncService = applicationContext.getBean(ISyncService.class);
@@ -227,27 +222,5 @@ public class ApplicationStarter implements ApplicationRunner {
       default:
         return SystemStopTypeEnum.NORMAL;
     }
-  }
-
-  /**
-   * <启动业务容器>
-   *
-   * @param
-   * @return org.springframework.context.ApplicationContext
-   * @author qiushi
-   * @updator qiushi
-   * @since 2021/9/9 09:19
-   */
-  private ApplicationContext startBiz() {
-
-    AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-    context.setParent(applicationContext);
-    context.setClassLoader(new ReactorHandlerClassLoader(applicationContext.getClassLoader()));
-    context.setEnvironment((ConfigurableEnvironment) applicationContext.getEnvironment());
-    // 扫描API相关包
-    context.scan("com.autumn.gateway.starter.biz.*");
-    context.setId("bizApplicationContext");
-    context.refresh();
-    return context;
   }
 }
