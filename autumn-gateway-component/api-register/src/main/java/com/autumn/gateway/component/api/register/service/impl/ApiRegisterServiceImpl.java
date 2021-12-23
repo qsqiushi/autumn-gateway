@@ -59,6 +59,23 @@ public class ApiRegisterServiceImpl implements IApiRegisterService {
   }
 
   /**
+   * <>
+   *
+   * @return boolean
+   * @author qiushi
+   * @updator qiushi
+   * @since 2021/12/23 09:09
+   */
+  @Override
+  public boolean registerAll() {
+    initApiMap();
+    for (Api api : apis.values()) {
+      register(api);
+    }
+    return true;
+  }
+
+  /**
    * <取消注册>
    *
    * @param apiId
@@ -102,8 +119,8 @@ public class ApiRegisterServiceImpl implements IApiRegisterService {
    */
   @Override
   public Api getMatch(HttpServerRequest httpServerRequest) {
+    initApiMap();
     Collection<Api> apis = this.apis.values();
-
     List<Api> matchApiList =
         apis.stream()
             .filter(
@@ -131,11 +148,14 @@ public class ApiRegisterServiceImpl implements IApiRegisterService {
 
   @Override
   public void initApiMap() {
-    this.apis =
-        apiDiscovererService.apis().stream().collect(Collectors.toMap(e -> e.getApiId(), e -> e));
+    if (CollectionUtils.isEmpty(apis)) {
+      this.apis =
+          apiDiscovererService.apis().stream().collect(Collectors.toMap(Api::getApiId, e -> e));
+    }
   }
 
   private Api get(String apiId) {
+    initApiMap();
     return apis.get(apiId);
   }
 

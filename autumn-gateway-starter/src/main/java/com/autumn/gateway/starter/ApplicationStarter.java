@@ -5,15 +5,11 @@ import com.autumn.gateway.core.enums.SystemRunStateEnum;
 import com.autumn.gateway.core.enums.SystemStartTypeEnum;
 import com.autumn.gateway.core.enums.SystemStopTypeEnum;
 import com.autumn.gateway.core.server.IServerManager;
-import com.autumn.gateway.core.service.cluster.IVertxManagerService;
 import com.autumn.gateway.core.service.server.IServer;
-import com.autumn.gateway.core.service.sync.ISyncService;
 import com.autumn.gateway.service.IPf4jPluginManagerService;
-import io.vertx.core.CompositeFuture;
-import io.vertx.core.DeploymentOptions;
-import io.vertx.core.Future;
-import io.vertx.core.Vertx;
-import io.vertx.core.json.JsonArray;
+import com.autumn.gateway.vertx.verticle.ApiSyncVerticle;
+import com.autumn.gateway.vertx.verticle.PluginLoadVerticle;
+import io.vertx.core.*;
 import io.vertx.core.json.JsonObject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
@@ -22,6 +18,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -44,6 +41,13 @@ public class ApplicationStarter implements ApplicationRunner {
   @Resource private IServerManager serverManager;
   /** 启动容器上下文 */
   @Resource ApplicationContext applicationContext;
+
+  @Resource private Vertx vertx;
+
+  @Resource private ApiSyncVerticle apiSyncVerticle;
+
+  @Resource private PluginLoadVerticle pluginLoadVerticle;
+
   /** 网关当前运行状态 */
   private SystemRunStateEnum runState = SystemRunStateEnum.STOPPED;
 
@@ -85,10 +89,12 @@ public class ApplicationStarter implements ApplicationRunner {
               this.setRunState(SystemRunStateEnum.STARTING);
               // 加载verticles 成功后启动服务
               loadVerticlesThenStartServers(startType);
-              ISyncService syncService = applicationContext.getBean(ISyncService.class);
-              // 异步启动同步线程
-              Thread thread = new Thread(syncService);
-              thread.start();
+              // TODO 启动与管理端同步
+              //              ISyncService syncService =
+              // applicationContext.getBean(ISyncService.class)
+              //               异步启动同步线程
+              //              Thread thread = new Thread(syncService)
+              //              thread.start()
 
               event.complete();
             })
@@ -116,23 +122,25 @@ public class ApplicationStarter implements ApplicationRunner {
   private void loadVerticlesThenStartServers(SystemStartTypeEnum startType) {
     // 获得系统配置
     JsonObject jsonObject = applicationConfiger.getProperty("sysConfig", JsonObject.class);
-    // 获得系统策略中 需要加载的verticles 类名称
-    JsonArray jsonArray = jsonObject.getJsonArray("verticles");
+
     DeploymentOptions deploymentOptions =
         new DeploymentOptions()
             .setMaxWorkerExecuteTime(3000)
             .setMaxWorkerExecuteTimeUnit(TimeUnit.SECONDS);
-    // 实例化vertx
-    Vertx vertx = applicationContext.getBean(IVertxManagerService.class).getVertx();
-    // 部署verticles
+
+    List<AbstractVerticle> verticles = new ArrayList<>();
+    verticles.add(apiSyncVerticle);
+    verticles.add(pluginLoadVerticle);
+
+    // 部署verticles  加载API 加载网关插件
     List<Future> futures =
-        jsonArray.stream()
+        verticles.stream()
             .map(
-                clzName ->
+                verticle ->
                     Future.<String>future(
                         r -> {
                           try {
-                            vertx.deployVerticle(clzName.toString(), deploymentOptions, r);
+                            vertx.deployVerticle(verticle, deploymentOptions, r);
                           } catch (Exception e) {
                             e.printStackTrace();
                           }

@@ -1,8 +1,8 @@
 {
   "sysConfig": {
     "verticles": [
-      "com.qm.agw.starter.vertx.verticle.ApiSyncVerticle",
-      "com.qm.agw.starter.vertx.verticle.PluginLoadVerticle"
+      "com.autumn.gateway.vertx.verticle.ApiSyncVerticle",
+      "com.autumn.gateway.vertx.verticle.PluginLoadVerticle"
     ]
   },
   "componentPolicy": [

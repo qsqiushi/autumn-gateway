@@ -21,6 +21,16 @@ public interface IApiRegisterService extends IService {
    */
   boolean register(Api api);
   /**
+   * <>
+   *
+   * @param
+   * @return boolean
+   * @author qiushi
+   * @updator qiushi
+   * @since 2021/12/23 09:09
+   */
+  boolean registerAll();
+  /**
    * <取消注册>
    *
    * @param apiId
