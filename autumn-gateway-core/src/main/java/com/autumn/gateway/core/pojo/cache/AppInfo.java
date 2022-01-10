@@ -7,7 +7,7 @@ import lombok.experimental.Accessors;
  * @author qiushi
  * @program autumn-gateway
  * @description
- * @since create 2021-08-30:09:27
+ * @since create 2021-08-30 09:27
  */
 @Data
 @Accessors(chain = true)

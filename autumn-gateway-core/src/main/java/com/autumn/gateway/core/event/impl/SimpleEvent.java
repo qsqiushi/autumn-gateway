@@ -8,7 +8,7 @@ import lombok.extern.slf4j.Slf4j;
  * @program autumn-gateway
  * @description
  * @author qiushi
- * @since 2021-07-27:14:40
+ * @since 2021-07-27 14:40
  */
 @Slf4j
 public class SimpleEvent<T extends Enum, S> implements Event<T, S> {

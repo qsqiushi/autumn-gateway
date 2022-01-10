@@ -12,7 +12,7 @@ import java.util.Objects;
  * @program autumn-gateway
  * @description
  * @author qiushi
- * @since 2021-06-05:14:30 //@Accessors(chain = true) 加上会影响 BeanUtils
+ * @since 2021-06-05 14:30 //@Accessors(chain = true) 加上会影响 BeanUtils
  */
 @Data
 @Slf4j

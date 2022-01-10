@@ -23,7 +23,7 @@ import java.util.List;
  * @program autumn-gateway
  * @description 插件链提供器
  * @author qiushi
- * @since 2021-07-21:15:16
+ * @since 2021-07-21 15:16
  */
 public class PluginChainProvider {
 

@@ -28,7 +28,6 @@ import java.util.stream.Collectors;
  * 系统启动器
  *
  * @author qius 2021/7/3
- * @updater qiushi
  */
 @Slf4j
 @Component

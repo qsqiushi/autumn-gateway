@@ -10,7 +10,9 @@ import com.autumn.gateway.core.handler.ReactorHandlerManager;
 import com.autumn.gateway.core.handler.UrlHandler;
 import com.autumn.gateway.core.service.IListableRouterManagerService;
 import com.autumn.gateway.core.service.register.IApiRegisterService;
+import com.google.gson.Gson;
 import io.netty.handler.codec.http.HttpHeaderValues;
+import io.vertx.core.MultiMap;
 import io.vertx.core.http.HttpHeaders;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.http.HttpServerRequest;
@@ -42,6 +44,8 @@ public class GlobalApiHandler implements IGlobalApiHandler {
   @Resource private ReactorHandlerManager reactorHandlerManager;
 
   @Resource private IListableRouterManagerService listableRouterManagerService;
+
+  @Resource private Gson gson;
 
   @Override
   public void handle(RoutingContext routingContext) {
@@ -75,8 +79,16 @@ public class GlobalApiHandler implements IGlobalApiHandler {
     } else {
       // uri 除去域名和端口
       // absoluteURI 全路径
-      String path = httpServerRequest.path();
+      String path = httpServerRequest.absoluteURI();
       HttpMethod httpMethod = httpServerRequest.method();
+      MultiMap headers = httpServerRequest.headers();
+      log.info("请求路径为[{}],请求方法为[{}],", path, httpMethod);
+      log.info("请求头[{}]", headers.toString().replaceAll("\r\n|\r|\n", ""));
+      if (routingContext.getBody() != null) {
+        log.info("请求体[{}]", routingContext.getBody().toString().replaceAll("\r\n|\r|\n", ""));
+      } else {
+        log.info("请求体为空");
+      }
       Api api = apiRegister.getMatch(httpServerRequest);
       ReactorHandler reactorHandle = reactorHandlerManager.get(api);
       if (api == null || reactorHandle == null) {

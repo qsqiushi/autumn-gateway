@@ -9,6 +9,7 @@ import io.vertx.ext.web.FileUpload;
 import io.vertx.ext.web.RoutingContext;
 import lombok.Data;
 import lombok.experimental.Accessors;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +22,7 @@ import java.util.Set;
  * @author qiushi
  * @since 2021-07-07:14:27
  */
+@Slf4j
 @Data
 @Accessors(chain = true)
 public class SimpleExecutionContext {

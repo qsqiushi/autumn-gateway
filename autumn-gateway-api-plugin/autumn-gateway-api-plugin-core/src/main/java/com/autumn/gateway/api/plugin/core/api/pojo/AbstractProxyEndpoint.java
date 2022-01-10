@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @program autumn-gateway
  * @description 服务节点
  * @author qiushi
- * @since 2021-06-17:10:07
+ * @since 2021-06-17 10:07
  */
 @Data
 public abstract class AbstractProxyEndpoint implements Serializable {

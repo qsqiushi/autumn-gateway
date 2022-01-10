@@ -13,7 +13,7 @@ import java.util.Objects;
  * @program autumn-gateway
  * @description
  * @author qiushi
- * @since 2021-07-29:14:08
+ * @since 2021-07-29 14:08
  */
 @Data
 @Accessors(chain = true)

@@ -7,7 +7,7 @@ import lombok.Data;
  * @author qiushi
  * @program autumn-gateway
  * @description
- * @since create 2021-09-06:11:03
+ * @since  2021-09-06 11:03
  */
 @Data
 public class WriterPolicy {

@@ -12,7 +12,7 @@ import java.util.Map;
  * @program autumn-gateway
  * @description
  * @author qiushi
- * @since 2021-07-28:16:47
+ * @since 2021-07-28 16:47
  */
 @Component
 public class DefaultReactorHandlerManager implements ReactorHandlerManager {

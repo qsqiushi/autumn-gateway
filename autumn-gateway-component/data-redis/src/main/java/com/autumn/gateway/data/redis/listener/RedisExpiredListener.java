@@ -8,7 +8,7 @@ import org.springframework.data.redis.connection.MessageListener;
  * @program airlook-build
  * @description 自定义redis监听
  * @author qius
- * @since 2020-11-19:16:40
+ * @since 2020-11-19 16:40
  */
 @Slf4j
 public class RedisExpiredListener implements MessageListener {

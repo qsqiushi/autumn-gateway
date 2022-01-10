@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @author qiushi
  * @program autumn-gateway
  * @description 插件信息
- * @since create 2021-08-23:19:05
+ * @since  2021-08-23 19:05
  */
 @Data
 public class Pf4jPluginInfo implements Serializable {

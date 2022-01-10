@@ -8,7 +8,7 @@ import io.vertx.core.http.HttpServerRequest;
  * @program qm-gateway
  * @description
  * @author qiushi
- * @since 2021-06-18:15:06
+ * @since 2021-06-18 15:06
  */
 public interface IApiRegisterService extends IService {
 

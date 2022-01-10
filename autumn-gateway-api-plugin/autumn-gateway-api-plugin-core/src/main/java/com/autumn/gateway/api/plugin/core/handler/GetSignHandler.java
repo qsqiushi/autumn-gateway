@@ -7,6 +7,6 @@ import io.vertx.ext.web.RoutingContext;
  * @author qiushi
  * @program autumn-gateway
  * @description
- * @since create 2021-08-27:16:32
+ * @since create 2021-08-27 16:32
  */
 public interface GetSignHandler extends Handler<RoutingContext> {}

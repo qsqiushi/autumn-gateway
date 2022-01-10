@@ -12,7 +12,7 @@ import javax.annotation.Resource;
  * @program autumn-gateway
  * @description
  * @author qiushi
- * @since 2021-07-27:15:39
+ * @since 2021-07-27 15:39
  */
 @Component
 public class ListenerManager {

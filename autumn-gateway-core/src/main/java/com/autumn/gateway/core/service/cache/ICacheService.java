@@ -10,7 +10,7 @@ import com.autumn.gateway.core.service.IService;
  * @program autumn-gateway
  * @description 缓存
  * @author qiushi
- * @since 2021-08-12:14:10
+ * @since 2021-08-12 14:10
  */
 public interface ICacheService extends IService {
   /**

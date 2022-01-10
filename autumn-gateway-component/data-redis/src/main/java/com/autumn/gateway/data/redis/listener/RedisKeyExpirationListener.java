@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
  * @description redis过期监听
  *     实现KeyExpirationEventMessageListener接口，查看源码发现，该接口监听所有db的过期事件keyevent@*:expired"
  * @author qius
- * @since 2020-11-19:16:35
+ * @since 2020-11-19 16:35
  */
 @Slf4j
 @Component

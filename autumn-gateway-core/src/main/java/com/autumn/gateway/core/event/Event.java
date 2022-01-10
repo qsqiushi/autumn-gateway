@@ -6,7 +6,7 @@ import io.vertx.core.Handler;
  * @program autumn-gateway
  * @description
  * @author qiushi
- * @since 2021-07-27:14:38
+ * @since 2021-07-27 14:38
  */
 public interface Event<T extends Enum, S> {
 

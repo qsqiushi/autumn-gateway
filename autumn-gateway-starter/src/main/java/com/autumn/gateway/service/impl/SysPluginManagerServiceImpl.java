@@ -13,7 +13,7 @@ import javax.annotation.Resource;
  * @author qiushi
  * @program autumn-gateway
  * @description 系统插件管理
- * @since create 2021-08-16:16:43
+ * @since  2021-08-16 16:43
  */
 @Service
 public class SysPluginManagerServiceImpl extends AbstractSysPluginManagerService {

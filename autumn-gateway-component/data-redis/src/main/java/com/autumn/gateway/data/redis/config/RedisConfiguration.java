@@ -17,7 +17,7 @@ import javax.annotation.PostConstruct;
 /**
  * redis配置
  *
- * @author guoxin
+ * @author qiushi
  * @since 2019-05-31 11:15:34
  */
 @Slf4j

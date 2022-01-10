@@ -6,7 +6,7 @@ import com.autumn.gateway.core.pojo.writer.WriterPolicy;
  * @author qiushi
  * @program autumn-gateway
  * @description
- * @since create 2021-09-04:09:57
+ * @since  2021-09-04 09:57
  */
 public interface IWriterPolicyProvider extends IPolicyProvider {
   /**

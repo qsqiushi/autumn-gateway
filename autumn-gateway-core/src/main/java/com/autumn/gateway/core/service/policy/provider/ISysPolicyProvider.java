@@ -6,7 +6,7 @@ import java.util.Map;
  * @program autumn-gateway
  * @description 系统策略
  * @author qiushi
- * @since create 2021-08-12:14:11
+ * @since  2021-08-12 14:11
  */
 public interface ISysPolicyProvider extends IBaseBizPolicyProvider {
   /**

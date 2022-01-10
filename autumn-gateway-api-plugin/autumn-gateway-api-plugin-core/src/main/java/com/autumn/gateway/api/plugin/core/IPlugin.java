@@ -8,7 +8,7 @@ import com.autumn.gateway.api.plugin.core.enums.ApiPluginTypeEnum;
  * @program autumn-gateway
  * @description
  * @author qiushi
- * @since 2021-07-01:16:05
+ * @since 2021-07-01 16:05
  */
 public interface IPlugin {
 

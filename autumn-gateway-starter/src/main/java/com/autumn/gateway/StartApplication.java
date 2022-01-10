@@ -26,7 +26,7 @@ import org.springframework.context.annotation.FilterType;
  * @program autumn-gateway
  * @description 启动类
  * @author qiushi
- * @since 2021-07-21:11:08
+ * @since 2021-07-21 11:08
  */
 @SpringBootApplication(
     exclude = {RedisAutoConfiguration.class, RedisRepositoriesAutoConfiguration.class})

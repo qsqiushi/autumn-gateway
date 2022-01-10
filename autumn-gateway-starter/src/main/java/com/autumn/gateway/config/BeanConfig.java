@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
  * @author qiushi
  * @program autumn-gateway
  * @description
- * @since create 2021-09-13:14:30
+ * @since  2021-09-13 14:30
  */
 @Configuration
 public class BeanConfig {

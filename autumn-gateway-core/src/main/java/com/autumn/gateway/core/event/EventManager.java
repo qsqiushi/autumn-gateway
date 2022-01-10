@@ -4,7 +4,7 @@ package com.autumn.gateway.core.event;
  * @program autumn-gateway
  * @description
  * @author qiushi
- * @since 2021-07-27:14:36
+ * @since 2021-07-27 14:36
  */
 public interface EventManager {
 

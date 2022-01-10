@@ -6,7 +6,7 @@ import org.pf4j.PluginWrapper;
  * @program autumn-gateway
  * @description
  * @author qiushi
- * @since 2021-06-23:10:30
+ * @since 2021-06-23 10:30
  */
 public abstract class AbstractPluginFactory implements IPluginFactory {
 

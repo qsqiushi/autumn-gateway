@@ -17,7 +17,7 @@ import java.util.Map;
  * @author qiushi
  * @program autumn-gateway
  * @description
- * @since create 2021-08-19:16:40
+ * @since create 2021-08-19 16:40
  */
 @Component
 public class DefaultLastPlugin extends AbstractPlugin {

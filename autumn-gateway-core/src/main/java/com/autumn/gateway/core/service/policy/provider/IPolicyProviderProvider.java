@@ -8,7 +8,7 @@ import com.autumn.gateway.core.service.IService;
  * @author qiushi
  * @program autumn-gateway
  * @description 策略提供者的提供者
- * @since create 2021-08-12:15:38
+ * @since  2021-08-12 15:38
  */
 public interface IPolicyProviderProvider extends IService {
   /**

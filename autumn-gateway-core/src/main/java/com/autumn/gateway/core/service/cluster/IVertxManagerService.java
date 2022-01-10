@@ -7,7 +7,7 @@ import io.vertx.core.Vertx;
  * @program autumn-gateway
  * @description
  * @author qiushi
- * @since 2021-07-22:13:33
+ * @since 2021-07-22 13:33
  */
 public interface IVertxManagerService extends IService {
 
