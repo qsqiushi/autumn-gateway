@@ -15,7 +15,7 @@ import java.util.function.Function;
  * @author qiushi
  * @program autumn-gateway
  * @description
- * @since create 2021-09-13 13:37
+ * @since 2021-09-13 13:37
  */
 @Data
 public class AutumnCircuitBreaker implements CircuitBreaker, Comparable<AutumnCircuitBreaker> {

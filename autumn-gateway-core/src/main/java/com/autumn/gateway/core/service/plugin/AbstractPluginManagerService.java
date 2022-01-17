@@ -21,7 +21,7 @@ import java.util.Map;
  * @author qiushi
  * @program autumn-gateway
  * @description
- * @since create 2021-08-16:19:08
+ * @since 2021-08-16:19:08
  */
 @Slf4j
 public abstract class AbstractPluginManagerService {

@@ -11,9 +11,9 @@ import javax.annotation.Resource;
 
 /**
  * @author qiushi
- * @program agw
+ * @program  autumn
  * @description 插件策略提供
- * @since create 2021-08-12:15:59
+ * @since 2021-08-12:15:59
  */
 @Slf4j
 @Service
@@ -32,7 +32,7 @@ public class PluginPolicyProviderImpl implements IPluginPolicyProvider {
    */
   @Override
   public String getPolicy(String policyId) {
-    String key = String.format(RedisKeyEnums.AGW_PLUGIN_POLICY.getKeyPattern(), policyId);
+    String key = String.format(RedisKeyEnums.AUTUMN_PLUGIN_POLICY.getKeyPattern(), policyId);
     return redisService.hget(key, PluginPolicyConstants.CONTENT);
   }
 }

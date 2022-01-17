@@ -4,7 +4,7 @@ package com.autumn.gateway.common.constant;
  * @author qiushi
  * @program autumn-gateway
  * @description 特殊符号常量
- * @since create 2021-08-26 16:32
+ * @since 2021-08-26 16:32
  */
 public class SpecialSymbolsConstants {
 

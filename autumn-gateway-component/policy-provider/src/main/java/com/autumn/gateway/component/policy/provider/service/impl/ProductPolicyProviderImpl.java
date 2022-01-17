@@ -14,9 +14,9 @@ import java.util.List;
 
 /**
  * @author qiushi
- * @program agw
+ * @program  autumn
  * @description app策略
- * @since create 2021-08-12:15:49
+ * @since 2021-08-12:15:49
  */
 @Slf4j
 @Service
@@ -35,7 +35,7 @@ public class ProductPolicyProviderImpl implements IProductPolicyProvider {
   @Override
   public List<PluginConfigInfo> getPluginsInfo(String... bizId) {
 
-    String key = String.format(RedisKeyEnums.AGW_PRODUCT_POLICY.getKeyPattern(), bizId);
+    String key = String.format(RedisKeyEnums.AUTUMN_PRODUCT_POLICY.getKeyPattern(), bizId);
 
     String plugins = redisService.hget(key, SysPolicyConstants.PLUGIN);
 

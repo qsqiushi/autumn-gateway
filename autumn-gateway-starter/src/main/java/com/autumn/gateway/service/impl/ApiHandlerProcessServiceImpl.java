@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author qiushi
  * @program autumn-gateway
  * @description
- * @since  2021-09-08 15:42
+ * @since 2021-09-08 15:42
  */
 @Service
 public class ApiHandlerProcessServiceImpl implements IApiHandlerProcessService {
@@ -40,8 +40,7 @@ public class ApiHandlerProcessServiceImpl implements IApiHandlerProcessService {
   /**
    * <正在处理API的数量+1>
    *
-   * @param api
-   * @return int
+   * @param api api
    * @author qiushi
    * @updator qiushi
    * @since 2021/9/8 15:46
@@ -61,8 +60,7 @@ public class ApiHandlerProcessServiceImpl implements IApiHandlerProcessService {
   /**
    * <计算正在处理API的数量-1>
    *
-   * @param api
-   * @return int
+   * @param api api信息
    * @author qiushi
    * @updator qiushi
    * @since 2021/9/8 15:46

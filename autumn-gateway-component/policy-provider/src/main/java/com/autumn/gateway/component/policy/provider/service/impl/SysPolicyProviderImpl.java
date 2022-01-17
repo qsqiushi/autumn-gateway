@@ -15,9 +15,9 @@ import java.util.Map;
 
 /**
  * @author qiushi
- * @program agw
+ * @program  autumn
  * @description 系统策略
- * @since create 2021-08-12:15:49
+ * @since 2021-08-12:15:49
  */
 @Slf4j
 @Service
@@ -37,7 +37,7 @@ public class SysPolicyProviderImpl implements ISysPolicyProvider {
   public List<PluginConfigInfo> getPluginsInfo(String... bizId) {
 
     String plugins =
-        redisService.hget(RedisKeyEnums.AGW_SYS_POLICY.getKeyPattern(), SysPolicyConstants.PLUGIN);
+        redisService.hget(RedisKeyEnums.AUTUMN_SYS_POLICY.getKeyPattern(), SysPolicyConstants.PLUGIN);
 
     return PolicyUtil.explainPluginConfig(plugins);
   }
@@ -54,7 +54,7 @@ public class SysPolicyProviderImpl implements ISysPolicyProvider {
   public String getDomain() {
 
     return redisService.hget(
-        RedisKeyEnums.AGW_SYS_POLICY.getKeyPattern(), SysPolicyConstants.DOMAIN);
+        RedisKeyEnums.AUTUMN_SYS_POLICY.getKeyPattern(), SysPolicyConstants.DOMAIN);
   }
 
   /**
@@ -67,6 +67,6 @@ public class SysPolicyProviderImpl implements ISysPolicyProvider {
    */
   @Override
   public Map<String, String> getSysPolicy() {
-    return redisService.hmget(RedisKeyEnums.AGW_SYS_POLICY.getKeyPattern());
+    return redisService.hmget(RedisKeyEnums.AUTUMN_SYS_POLICY.getKeyPattern());
   }
 }

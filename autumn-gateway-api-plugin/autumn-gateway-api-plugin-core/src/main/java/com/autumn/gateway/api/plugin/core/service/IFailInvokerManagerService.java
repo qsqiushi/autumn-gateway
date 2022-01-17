@@ -7,7 +7,7 @@ import com.autumn.gateway.api.plugin.core.pojo.AutumnCircuitBreaker;
  * @author qiushi
  * @program autumn-gateway
  * @description
- * @since create 2021-09-13 14:09
+ * @since 2021-09-13 14:09
  */
 public interface IFailInvokerManagerService {
   /**

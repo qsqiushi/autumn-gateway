@@ -39,7 +39,7 @@ public class StartVerticle extends AbstractVerticle {
 
     // router.get("/hystrix-metrics").handler(HystrixMetricHandler.create(vertx)) 熔断的支持
 
-    router.route().handler(BodyHandler.create());
+    //router.route().handler(BodyHandler.create());
     // defaultApiHandler 处理网关核心逻辑
     // 添加例外 在globalApiHandler 中处理
     router

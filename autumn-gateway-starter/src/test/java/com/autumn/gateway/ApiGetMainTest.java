@@ -1,8 +1,5 @@
 //package com.autumn.test;
 //
-//import com.qm.agw.common.redis.util.RedisUtil;
-//import com.qm.agw.core.plugin.api.pojo.Api;
-//import com.qm.agw.pluggable.api.discover.redis.enums.RedisKeyEnums;
 //import org.springframework.data.redis.core.HashOperations;
 //import org.springframework.data.redis.core.RedisTemplate;
 //
@@ -10,10 +7,10 @@
 //import java.util.Set;
 //
 ///**
-// * @program agw
+// * @program  autumn
 // * @description
 // * @author qiushi
-//* @since 2021-07-27:10:21
+// * @since 2021-07-27:10:21
 // */
 //public class ApiGetMainTest {
 //

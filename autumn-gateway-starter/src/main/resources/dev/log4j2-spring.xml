@@ -79,7 +79,7 @@
         <AsyncLogger name="org.springframework" level="INFO"></AsyncLogger>
         <AsyncLogger name="org.mybatis" level="INFO"></AsyncLogger>
 
-        <AsyncRoot level="info" includeLocation="true">
+        <AsyncRoot level="debug" includeLocation="true">
             <AppenderRef ref="Console"/>
             <AppenderRef ref="RollingFileInfo"/>
             <AppenderRef ref="RollingFileWarn"/>

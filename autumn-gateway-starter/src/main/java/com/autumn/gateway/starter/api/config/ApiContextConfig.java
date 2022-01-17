@@ -12,7 +12,7 @@ import javax.annotation.Resource;
  * @author qiushi
  * @program autumn-gateway
  * @description
- * @since create 2021-08-25:15:41
+ * @since 2021-08-25:15:41
  */
 @Component
 public class ApiContextConfig {

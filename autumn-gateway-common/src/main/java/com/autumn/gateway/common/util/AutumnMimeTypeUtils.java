@@ -4,7 +4,7 @@ package com.autumn.gateway.common.util;
  * @author qiushi
  * @program autumn-gateway
  * @description
- * @since create 2021-09-09 16:20
+ * @since 2021-09-09 16:20
  */
 public class AutumnMimeTypeUtils {
 

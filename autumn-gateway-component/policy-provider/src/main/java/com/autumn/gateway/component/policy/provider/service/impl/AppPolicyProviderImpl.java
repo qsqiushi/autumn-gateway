@@ -14,9 +14,9 @@ import java.util.List;
 
 /**
  * @author qiushi
- * @program agw
+ * @program autumn
  * @description app策略
- * @since create 2021-08-12:15:49
+ * @since 2021-08-12 15:49
  */
 @Slf4j
 @Service
@@ -27,7 +27,8 @@ public class AppPolicyProviderImpl implements IAppPolicyProvider {
   /**
    * <获取插件信息>
    *
-   * @param bizId@return : io.vertx.core.json.JsonArray
+   * @param bizId 业务ID
+   * @return : io.vertx.core.json.JsonArray
    * @author qiushi
    * @updator qiushi
    * @since 2021/8/13 16:47
@@ -35,7 +36,7 @@ public class AppPolicyProviderImpl implements IAppPolicyProvider {
   @Override
   public List<PluginConfigInfo> getPluginsInfo(String... bizId) {
 
-    String key = String.format(RedisKeyEnums.AGW_APP_POLICY.getKeyPattern(), bizId);
+    String key = String.format(RedisKeyEnums.AUTUMN_APP_POLICY.getKeyPattern(), bizId);
 
     String plugins = redisService.hget(key, SysPolicyConstants.PLUGIN);
 

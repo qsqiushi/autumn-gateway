@@ -7,7 +7,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author qiushi
  * @program autumn-gateway
  * @description 有效期MAP
- * @since create 2021-09-15 13:21
+ * @since 2021-09-15 13:21
  */
 public class ExpiryMap<K, V> implements Map<K, V> {
   private static ConcurrentHashMap workMap = new ConcurrentHashMap();

@@ -33,9 +33,8 @@ public class ApiContextManagerServiceImpl implements IApiContextManagerService {
   /**
    * <注册>
    *
-   * @param api
-   * @param applicationContext
-   * @return : void
+   * @param api api
+   * @param applicationContext 上下文
    * @author qiushi
    * @updator qiushi
    * @since 2021/9/8 14:31

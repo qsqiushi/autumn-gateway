@@ -62,14 +62,5 @@ public interface IPolicyProviderProvider extends IService {
    * @since 2021/8/12 15:44
    */
   ISysPolicyProvider createSysPolicyProvider();
-  /**
-   * <创建写入>
-   *
-   * @param
-   * @return : IWriterPolicyProvider
-   * @author qiushi
-   * @updator qiushi
-   * @since 2021/9/4 13:33
-   */
-  IWriterPolicyProvider createWriterPolicyProvider();
+
 }

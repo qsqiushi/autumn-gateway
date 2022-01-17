@@ -39,8 +39,14 @@ public class ApiReactorEventListener implements EventListener<ApiReactorEvent, A
                   lookupForServiceDiscovery(api);
                   deployEvent.complete();
                 })
-            .onSuccess(event.getSuccessHandler())
-            .onFailure(event.getFailureHandler());
+            .onComplete(
+                result -> {
+                  if (result.succeeded()) {
+                    event.getSuccessHandler();
+                  } else {
+                    event.getFailureHandler();
+                  }
+                });
 
         break;
       case UNDEPLOY:
@@ -77,7 +83,7 @@ public class ApiReactorEventListener implements EventListener<ApiReactorEvent, A
    * @since 2021/7/27 15:35
    */
   private void lookupForServiceDiscovery(Api api) {
-    log.info("create api handler begin...");
+    log.info("create api [{}] handler begin...",api.getUrl());
     apiContextHandlerFactory.create(api);
     log.info("create api handler end");
   }

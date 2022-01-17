@@ -10,9 +10,9 @@ import javax.annotation.Resource;
 
 /**
  * @author qiushi
- * @program agw
+ * @program  autumn
  * @description
- * @since create 2021-08-23:08:50
+ * @since 2021-08-23:08:50
  */
 @Component
 public class ServerConfig {

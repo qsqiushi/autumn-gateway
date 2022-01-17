@@ -13,11 +13,12 @@ import com.autumn.gateway.core.service.register.IApiRegisterService;
 import com.google.gson.Gson;
 import io.netty.handler.codec.http.HttpHeaderValues;
 import io.vertx.core.MultiMap;
-import io.vertx.core.http.HttpHeaders;
-import io.vertx.core.http.HttpMethod;
-import io.vertx.core.http.HttpServerRequest;
-import io.vertx.core.http.HttpVersion;
+import io.vertx.core.Vertx;
+import io.vertx.core.http.*;
 import io.vertx.ext.web.RoutingContext;
+import io.vertx.httpproxy.HttpProxy;
+import io.vertx.httpproxy.ProxyOptions;
+import io.vertx.httpproxy.impl.HttpProxyImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.ThreadContext;
@@ -47,6 +48,8 @@ public class GlobalApiHandler implements IGlobalApiHandler {
 
   @Resource private Gson gson;
 
+  @Resource private Vertx vertx;
+
   @Override
   public void handle(RoutingContext routingContext) {
 
@@ -73,6 +76,24 @@ public class GlobalApiHandler implements IGlobalApiHandler {
     } else if (httpServerRequest.version() == HttpVersion.HTTP_2) {
       if (APPLICATION_GRPC.equals(httpServerRequest.getHeader(HttpHeaders.CONTENT_TYPE))) {
         log.info("是grpc协议");
+
+
+        HttpClientOptions httpClientOptions =
+            new HttpClientOptions()
+                .setProtocolVersion(HttpVersion.HTTP_2)
+                .setHttp2ClearTextUpgrade(false);
+
+        ProxyOptions proxyOptions = new ProxyOptions();
+        proxyOptions.setSupportWebSocket(true);
+
+        HttpClient client = vertx.createHttpClient(httpClientOptions);
+
+        HttpProxy proxy =  HttpProxy.reverseProxy(proxyOptions, client);
+
+        proxy.origin(8080, "0.0.0.0");
+
+        proxy.handle(httpServerRequest);
+
       } else {
         log.info("是http2协议");
       }
