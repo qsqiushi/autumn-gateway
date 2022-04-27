@@ -23,9 +23,10 @@ class ProxyServerInitializer extends ChannelInitializer<SocketChannel> {
   @Override
   protected void initChannel(SocketChannel ch) throws Exception {
     ch.pipeline()
+        // 在ChannelPipeline的末尾添加ChannelHandler
         .addLast(
             new LoggingHandler(LogLevel.INFO),
-            new DecodeHandler(servers, counter),
+            new DecodeHandler(),
             new HexDumpProxyFrontendHandler());
   }
 }

@@ -71,7 +71,7 @@ class HexDumpProxyFrontendHandler extends ChannelInboundHandlerAdapter {
 
   @Override
   public void channelInactive(ChannelHandlerContext ctx) {
-    System.out.println("channelInactive");
+    System.out.println("Front channelInactive");
     if (outboundChannel != null) {
       closeOnFlush(outboundChannel);
     }

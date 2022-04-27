@@ -4,9 +4,9 @@ import com.autumn.gateway.api.plugin.core.IPlugin;
 import com.autumn.gateway.api.plugin.core.IPluginFactoryExtensionPoint;
 import com.autumn.gateway.api.plugin.core.factory.IPluginFactory;
 import com.autumn.gateway.api.plugin.core.pojo.PluginParam;
+import com.autumn.gateway.common.util.ApplicationContextUtil;
 import com.autumn.gateway.core.pojo.sync.Pf4jPluginInfo;
 import com.autumn.gateway.service.IPf4jPluginManagerService;
-import com.autumn.gateway.util.ApplicationContextUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.pf4j.PluginState;
 import org.pf4j.PluginWrapper;
@@ -22,7 +22,7 @@ import java.util.List;
  * @program autumn-gateway
  * @description 插件管理类
  * @author qiushi
- * @since  2021-07-06 09:36
+ * @since 2021-07-06 09:36
  */
 @Slf4j
 @Service

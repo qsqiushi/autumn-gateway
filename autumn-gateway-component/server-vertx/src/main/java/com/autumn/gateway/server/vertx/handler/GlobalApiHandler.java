@@ -14,11 +14,12 @@ import com.google.gson.Gson;
 import io.netty.handler.codec.http.HttpHeaderValues;
 import io.vertx.core.MultiMap;
 import io.vertx.core.Vertx;
+import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.*;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.httpproxy.HttpProxy;
 import io.vertx.httpproxy.ProxyOptions;
-import io.vertx.httpproxy.impl.HttpProxyImpl;
+import io.vertx.httpproxy.cache.CacheOptions;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.ThreadContext;
@@ -73,26 +74,47 @@ public class GlobalApiHandler implements IGlobalApiHandler {
     if (isWebSocket(httpServerRequest)) {
       log.info("是长连接");
 
+      HttpClientOptions httpClientOptions =
+          new HttpClientOptions().setProtocolVersion(HttpVersion.HTTP_1_1);
+      HttpClient client = vertx.createHttpClient(httpClientOptions);
+
+      httpServerRequest.response().setChunked(true);
+
+      httpServerRequest.headers().add("transfer-encoding", "chunked");
+
+      ProxyOptions proxyOptions = new ProxyOptions();
+      proxyOptions.setSupportWebSocket(true);
+      proxyOptions.setCacheOptions(new CacheOptions());
+      HttpProxy proxy = HttpProxy.reverseProxy(proxyOptions, client);
+
+      proxy.origin(8888, "127.0.0.1");
+
+      proxy.handle(httpServerRequest);
+
     } else if (httpServerRequest.version() == HttpVersion.HTTP_2) {
       if (APPLICATION_GRPC.equals(httpServerRequest.getHeader(HttpHeaders.CONTENT_TYPE))) {
         log.info("是grpc协议");
-
 
         HttpClientOptions httpClientOptions =
             new HttpClientOptions()
                 .setProtocolVersion(HttpVersion.HTTP_2)
                 .setHttp2ClearTextUpgrade(false);
 
-        ProxyOptions proxyOptions = new ProxyOptions();
-        proxyOptions.setSupportWebSocket(true);
-
         HttpClient client = vertx.createHttpClient(httpClientOptions);
 
-        HttpProxy proxy =  HttpProxy.reverseProxy(proxyOptions, client);
+        httpServerRequest.response().setChunked(true);
 
-        proxy.origin(8080, "0.0.0.0");
+        httpServerRequest.headers().add("transfer-encoding", "chunked");
+
+        ProxyOptions proxyOptions = new ProxyOptions();
+        proxyOptions.setSupportWebSocket(true);
+        proxyOptions.setCacheOptions(new CacheOptions());
+        HttpProxy proxy = HttpProxy.reverseProxy(proxyOptions, client);
+
+        proxy.origin(8080, "127.0.0.1");
 
         proxy.handle(httpServerRequest);
+
 
       } else {
         log.info("是http2协议");

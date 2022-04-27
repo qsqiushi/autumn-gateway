@@ -4,10 +4,10 @@ import com.autumn.gateway.common.enums.ResultCode;
 import com.autumn.gateway.common.pojo.builder.ResponseBuilder;
 import com.autumn.gateway.common.util.AutumnMimeTypeUtils;
 import com.autumn.gateway.core.handler.IGlobalApiHandler;
+import com.autumn.gateway.server.vertx.service.impl.AutumnBodyHandlerImpl;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.http.HttpServer;
 import io.vertx.ext.web.Router;
-import io.vertx.ext.web.handler.BodyHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -39,11 +39,12 @@ public class StartVerticle extends AbstractVerticle {
 
     // router.get("/hystrix-metrics").handler(HystrixMetricHandler.create(vertx)) 熔断的支持
 
-    //router.route().handler(BodyHandler.create());
+    router.route().handler(new AutumnBodyHandlerImpl());
     // defaultApiHandler 处理网关核心逻辑
     // 添加例外 在globalApiHandler 中处理
     router
         .route("/*")
+        // .handler(BodyHandler.create())
         .handler(globalApiHandler::handle)
         .failureHandler(
             routingContext -> {

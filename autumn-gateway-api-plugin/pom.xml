@@ -13,6 +13,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>autumn-gateway-api-plugin-core</module>
+        <module>proxy-http</module>
     </modules>
 
     <properties>

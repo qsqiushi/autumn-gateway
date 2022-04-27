@@ -1,4 +1,4 @@
-package com.autumn.gateway.util;
+package com.autumn.gateway.common.util;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;

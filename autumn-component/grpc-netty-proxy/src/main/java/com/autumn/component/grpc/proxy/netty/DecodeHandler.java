@@ -1,32 +1,18 @@
 package com.autumn.component.grpc.proxy.netty;
 
-import com.autumn.component.grpc.proxy.netty.bo.AddressBO;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelDuplexHandler;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.http2.*;
 
-import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
-
 import static io.netty.handler.logging.LogLevel.INFO;
 
-/** DecodeHandler Created by xieyz on 16-10-20. */
 @ChannelHandler.Sharable
 class DecodeHandler extends ChannelDuplexHandler {
 
   private static final Http2FrameLogger HTTP2_FRAME_LOGGER =
       new Http2FrameLogger(INFO, DecodeHandler.class);
-
-  private List<AddressBO> servers;
-
-  private final AtomicInteger counter;
-
-  public DecodeHandler(List<AddressBO> servers, AtomicInteger counter) {
-    this.servers = servers;
-    this.counter = counter;
-  }
 
   @Override
   public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
@@ -59,7 +45,7 @@ class DecodeHandler extends ChannelDuplexHandler {
   }
 
   @Override
-  public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
+  public void channelReadComplete(ChannelHandlerContext ctx) {
     ctx.fireChannelReadComplete();
   }
 
