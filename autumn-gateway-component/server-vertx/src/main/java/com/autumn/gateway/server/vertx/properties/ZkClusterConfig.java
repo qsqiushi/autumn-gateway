@@ -1,9 +1,7 @@
 package com.autumn.gateway.server.vertx.properties;
 
 import lombok.Data;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.stereotype.Component;
+import lombok.experimental.Accessors;
 
 /**
  * @author qiushi
@@ -12,9 +10,7 @@ import org.springframework.stereotype.Component;
  * @since 2021-12-15 11:01
  */
 @Data
-@Component
-@PropertySource(value = {"classpath:zk-vertx.properties"})
-@ConfigurationProperties(prefix = "zk")
+@Accessors(chain = true)
 public class ZkClusterConfig {
 
   private String zookeeperHosts;

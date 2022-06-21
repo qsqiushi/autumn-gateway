@@ -1,5 +1,5 @@
 plugin:
-  folder: ./agwPluginsAndLogsFolder/plugins
+  folder: ./plugins
 spring:
   application:
     name: autumn-gateway
@@ -9,5 +9,14 @@ spring:
     host: 10.133.92.157
     password: redis@2021
     database: 7
+autumn:
+  zookeeper:
+    cluster-Config:
+      zookeeperHosts: dev-fc2mw-agw-agwcore-zookeeper.qm.cn:32202
+      root-path: autumn.vertx
+      retry:
+        initialSleepTime: 3000
+        maxTimes: 3
+    sync-path: /autumn/gateway/sync
 
 

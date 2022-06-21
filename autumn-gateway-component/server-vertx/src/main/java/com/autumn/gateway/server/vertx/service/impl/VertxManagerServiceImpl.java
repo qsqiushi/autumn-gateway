@@ -1,7 +1,7 @@
 package com.autumn.gateway.server.vertx.service.impl;
 
 import com.autumn.gateway.core.service.cluster.IVertxManagerService;
-import com.autumn.gateway.server.vertx.properties.ZkClusterConfig;
+import com.autumn.gateway.server.vertx.service.ZookeeperProperties;
 import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
 import io.vertx.core.json.Json;
@@ -14,7 +14,7 @@ import javax.annotation.Resource;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
- * @program  autumn
+ * @program autumn
  * @description vertx管理策略实现
  * @author qiushi
  * @since 2021-07-22:15:18
@@ -25,7 +25,7 @@ public class VertxManagerServiceImpl implements IVertxManagerService {
 
   private static Vertx vertx;
 
-  @Resource private ZkClusterConfig zkClusterConfig;
+  @Resource private ZookeeperProperties zookeeperProperties;
 
   /**
    * <获取唯一的vertx实例>
@@ -62,9 +62,14 @@ public class VertxManagerServiceImpl implements IVertxManagerService {
 
     ZookeeperClusterManager mgr = new ZookeeperClusterManager();
 
-    mgr.setConfig(new JsonObject(Json.encode(zkClusterConfig)));
+    zookeeperProperties
+        .getClusterConfig()
+        .setZookeeperHosts(zookeeperProperties.getClusterConfig().getZookeeperHosts());
+
+    mgr.setConfig(new JsonObject(Json.encode(zookeeperProperties.getClusterConfig())));
 
     VertxOptions options = new VertxOptions().setClusterManager(mgr);
+
     Vertx.clusteredVertx(
         options,
         res -> {
