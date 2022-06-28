@@ -15,6 +15,7 @@
         <module>autumn-gateway-core</module>
         <module>autumn-gateway-component</module>
         <module>autumn-component</module>
+        <module>autumn-gateway-admin</module>
     </modules>
 
     <name>autumn-gateway</name>
