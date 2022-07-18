@@ -1,6 +1,5 @@
 package com.autumn.gateway.admin.controller;
 
-import com.autumn.gateway.admin.dto.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
@@ -22,14 +21,5 @@ public class ApiController {
     return "knife4j";
   }
 
-  /**
-   * 添加用户
-   *
-   * @param user
-   * @return
-   */
-  @PostMapping("/addUser")
-  public User getUser(@RequestBody User user) {
-    return new User();
-  }
+
 }

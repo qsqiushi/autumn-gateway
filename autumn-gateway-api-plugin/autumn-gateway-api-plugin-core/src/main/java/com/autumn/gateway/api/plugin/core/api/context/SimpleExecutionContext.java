@@ -63,7 +63,7 @@ public class SimpleExecutionContext {
   private Buffer requestBody;
 
   /** 上传文件 */
-  private Set<FileUpload> uploadFiles;
+  private List<FileUpload> uploadFiles;
 
   /** 表单数据 */
   private MultiMap formAttributes;

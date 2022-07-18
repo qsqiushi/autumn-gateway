@@ -4,15 +4,13 @@ import com.autumn.gateway.common.enums.ResultCode;
 import com.autumn.gateway.common.pojo.builder.ResponseBuilder;
 import com.autumn.gateway.common.util.AutumnMimeTypeUtils;
 import com.autumn.gateway.core.handler.IGlobalApiHandler;
-import com.autumn.gateway.server.vertx.service.impl.AutumnBodyHandlerImpl;
+import com.autumn.gateway.server.vertx.config.ServerConfig;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.http.HttpServer;
 import io.vertx.ext.web.Router;
+import io.vertx.ext.web.handler.impl.BodyHandlerImpl;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.Resource;
 
 /**
  * @program qm-gateway
@@ -24,22 +22,34 @@ import javax.annotation.Resource;
 @Component
 public class StartVerticle extends AbstractVerticle {
 
-  @Value("${autumn.server.port:80}")
-  private Integer port;
-
-  @Resource private IGlobalApiHandler globalApiHandler;
-
-  @Resource private HttpServer httpServer;
-
   @Override
   public void start() throws Exception {
     super.start();
+
+    IGlobalApiHandler globalApiHandler = ServerConfig.getGlobalApiHandler();
+
+    Integer port = ServerConfig.getPort();
+
+    Integer bodyLimit = ServerConfig.getBodyLimit();
+
+    Long bodyLimitLong = null;
+
+    if (bodyLimit == null) {
+      bodyLimitLong = -1L;
+    } else {
+      bodyLimitLong = bodyLimit * 1024L * 1024L;
+    }
+
+    HttpServer httpServer = vertx.createHttpServer();
 
     Router router = Router.router(vertx);
 
     // router.get("/hystrix-metrics").handler(HystrixMetricHandler.create(vertx)) 熔断的支持
 
-    router.route().handler(new AutumnBodyHandlerImpl());
+    router
+        .route()
+        .handler(
+            new BodyHandlerImpl().setBodyLimit(bodyLimitLong).setDeleteUploadedFilesOnEnd(true));
     // defaultApiHandler 处理网关核心逻辑
     // 添加例外 在globalApiHandler 中处理
     router

@@ -91,7 +91,8 @@ public class RedisServiceImpl<T> implements RedisService<T> {
       if (key.length == 1) {
         redisTemplate.delete(key[0]);
       } else {
-        redisTemplate.delete(CollectionUtils.arrayToList(key));
+        //TODO
+        //redisTemplate.delete(CollectionUtils.arrayToList(key));
       }
     }
   }

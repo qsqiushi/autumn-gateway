@@ -10,6 +10,10 @@ spring:
     password: redis@2021
     database: 7
 autumn:
+  server:
+    bodyLimit: 150
+    port: 80
+    instances: 16
   zookeeper:
     cluster-Config:
       zookeeperHosts: dev-fc2mw-agw-agwcore-zookeeper.qm.cn:32202
