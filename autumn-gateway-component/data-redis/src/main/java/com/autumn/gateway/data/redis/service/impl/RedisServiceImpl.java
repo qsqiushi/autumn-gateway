@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -91,8 +92,7 @@ public class RedisServiceImpl<T> implements RedisService<T> {
       if (key.length == 1) {
         redisTemplate.delete(key[0]);
       } else {
-        //TODO
-        //redisTemplate.delete(CollectionUtils.arrayToList(key));
+        redisTemplate.delete(Arrays.asList(key));
       }
     }
   }
