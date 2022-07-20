@@ -1,11 +1,7 @@
 package com.autumn.gateway.server.vertx.config;
 
 import com.autumn.gateway.core.handler.IGlobalApiHandler;
-import com.autumn.gateway.core.service.cluster.IVertxManagerService;
-import io.vertx.core.Vertx;
-import io.vertx.core.http.HttpServer;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -49,18 +45,5 @@ public class ServerConfig {
     return serverConfig.bodyLimit;
   }
 
-  @Resource private IVertxManagerService vertxManagerService;
 
-  @Bean
-  public Vertx getVertx() {
-    return vertxManagerService.getVertx();
-  }
-
-  @Bean
-  public HttpServer getHttpServer() {
-
-    Vertx vertx = vertxManagerService.getVertx();
-    HttpServer httpServer = vertx.createHttpServer();
-    return httpServer;
-  }
 }

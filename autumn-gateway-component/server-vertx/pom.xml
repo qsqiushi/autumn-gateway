@@ -27,18 +27,12 @@
             <artifactId>spring-boot</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.vertx</groupId>
-            <artifactId>vertx-zookeeper</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
         </dependency>
         <dependency>
             <groupId>io.vertx</groupId>
             <artifactId>vertx-http-proxy</artifactId>
-            <version>4.2.3</version>
-            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>
