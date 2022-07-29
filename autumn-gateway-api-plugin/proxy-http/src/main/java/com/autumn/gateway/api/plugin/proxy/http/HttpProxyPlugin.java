@@ -51,14 +51,14 @@ public class HttpProxyPlugin extends AbstractPlugin {
   /**
    * <执行插件>
    *
-   * @param simpleExecutionContext
+   * @param ctx
    * @return : void
    * @author qiushi
    * @updator qiushi
    * @since 2021/7/12 14:05
    */
   @Override
-  protected void doExecute(SimpleExecutionContext simpleExecutionContext) {
+  protected void doExecute(SimpleExecutionContext ctx) {
     // DO NOTHING
   }
 
@@ -76,10 +76,10 @@ public class HttpProxyPlugin extends AbstractPlugin {
   }
 
   @Override
-  public void execute(SimpleExecutionContext simpleExecutionContext, ReactorHandler handler) {
+  public void execute(SimpleExecutionContext ctx, ReactorHandler handler) {
 
-    if (simpleExecutionContext.getHasError() && !errorEncounteredContinue()) {
-      handler.handle(simpleExecutionContext);
+    if (ctx.getHasError() && !errorEncounteredContinue()) {
+      handler.handle(ctx);
       return;
     }
 
@@ -95,11 +95,11 @@ public class HttpProxyPlugin extends AbstractPlugin {
     final WebClient webClient = WEB_CLIENTS.computeIfAbsent(vertx, createWebClient(vertx));
 
     // 获取query参数
-    MultiMap queryParameters = simpleExecutionContext.getProxyQueryParameters();
+    MultiMap queryParameters = ctx.getProxyQueryParameters();
 
     // 获取访问路径
     String urlStr =
-        simpleExecutionContext.getAttributes().get(SimpleExecutionContext.ATTR_HTTP_URL).toString();
+        ctx.getAttributes().get(SimpleExecutionContext.ATTR_HTTP_URL).toString();
 
     // 构造URI   如此处理是解决 后台服务地址为带query参数的地址
     URI uri;
@@ -124,9 +124,9 @@ public class HttpProxyPlugin extends AbstractPlugin {
       uri = uriBuilder.build();
     } catch (Exception ex) {
       log.error("代理服务出现错误", ex);
-      super.throwPluginException(simpleExecutionContext, ex);
-      simpleExecutionContext.setProxyResult(Buffer.buffer(ex.toString()));
-      handler.handle(simpleExecutionContext);
+      super.throwPluginException(ctx, ex);
+      ctx.setProxyResult(Buffer.buffer(ex.toString()));
+      handler.handle(ctx);
       return;
     }
 
@@ -142,14 +142,16 @@ public class HttpProxyPlugin extends AbstractPlugin {
     HttpMethod httpMethod = HttpMethod.valueOf(api.getServiceHttpMethod().toUpperCase(Locale.ROOT));
 
     /** 未处理的请求体 */
-    Buffer proxyRequestBody = simpleExecutionContext.getProxyRequestBody();
+    Buffer proxyRequestBody = ctx.getProxyRequestBody();
     /** 处理后的请求体 */
-    String proxyRequestBodyAfterRewrite = simpleExecutionContext.getProxyRequestBodyAfterRewrite();
+    String proxyRequestBodyAfterRewrite = ctx.getProxyRequestBodyAfterRewrite();
     /** 请求头 */
-    MultiMap headers = simpleExecutionContext.getProxyHeaders();
+    MultiMap headers = ctx.getProxyHeaders();
 
     HttpRequest<Buffer> httpRequest =
         webClient.requestAbs(httpMethod, uri.toString()).timeout(timeout);
+
+    httpRequest.ssl(urlStr.toLowerCase(Locale.ROOT).startsWith("https"));
 
     if (headers != null) {
       httpRequest.putHeaders(headers);
@@ -157,7 +159,7 @@ public class HttpProxyPlugin extends AbstractPlugin {
 
     if (agwCircuitBreaker == null) {
 
-      send(simpleExecutionContext, handler, httpRequest);
+      send(ctx, handler, httpRequest);
 
     } else {
       log.info("agwCircuitBreaker state [{}]", agwCircuitBreaker.state());
@@ -169,28 +171,28 @@ public class HttpProxyPlugin extends AbstractPlugin {
                 Handler<AsyncResult<HttpResponse<Buffer>>> asyncHandler =
                     httpResponseAsyncResult -> {
                       handleRespAsync(
-                          simpleExecutionContext, handler, promise, httpResponseAsyncResult);
+                          ctx, handler, promise, httpResponseAsyncResult);
                     };
 
                 if (StringUtils.equals(HttpMethod.POST.name(), httpMethod.name())
-                    && simpleExecutionContext
+                    && ctx
                         .getHeaders()
                         .get("Content-Type")
                         .toLowerCase(Locale.ROOT)
                         .contains("multipart/form-data")) {
-                  MultipartForm multipartForm = getFormDataParts(simpleExecutionContext);
+                  MultipartForm multipartForm = getFormDataParts(ctx);
                   httpRequest.sendMultipartForm(multipartForm, asyncHandler);
                 }
 
                 if (StringUtils.equals(HttpMethod.POST.name(), httpMethod.name())
-                    && simpleExecutionContext
+                    && ctx
                         .getHeaders()
                         .get("Content-Type")
                         .toLowerCase(Locale.ROOT)
                         .contains("application/x-www-form-urlencoded")) {
 
                   httpRequest.sendForm(
-                      simpleExecutionContext.getProxyFormAttributes(), asyncHandler);
+                      ctx.getProxyFormAttributes(), asyncHandler);
                 }
 
                 if (StringUtils.isNotEmpty(proxyRequestBodyAfterRewrite)) {
@@ -209,7 +211,7 @@ public class HttpProxyPlugin extends AbstractPlugin {
                 } else {
                   log.error("出现异常", ar.cause());
                 }
-                handler.handle(simpleExecutionContext);
+                handler.handle(ctx);
               });
     }
   }
@@ -326,7 +328,7 @@ public class HttpProxyPlugin extends AbstractPlugin {
   }
 
   private void handleRespAsync(
-      SimpleExecutionContext simpleExecutionContext,
+      SimpleExecutionContext ctx,
       ReactorHandler handler,
       io.vertx.core.Promise<Void> promise,
       io.vertx.core.AsyncResult<HttpResponse<Buffer>> httpResponseAsyncResult) {
@@ -337,30 +339,30 @@ public class HttpProxyPlugin extends AbstractPlugin {
       promise.fail(ex);
       log.error("代理服务出现错误", ex);
       // 设置服务端响应
-      simpleExecutionContext.setProxyResult(Buffer.buffer(ex.toString()));
+      ctx.setProxyResult(Buffer.buffer(ex.toString()));
       if (response != null) {
         // 设置服务端响应码
-        simpleExecutionContext.setProxyStatusCode(response.statusCode());
+        ctx.setProxyStatusCode(response.statusCode());
       }
       // 设置网关响应结果
-      simpleExecutionContext.setRespResult(Buffer.buffer(ex.toString()));
+      ctx.setRespResult(Buffer.buffer(ex.toString()));
       /** @updator JiangLei 继续向下执行，并将异常记录 */
-      super.throwPluginException(simpleExecutionContext, ex);
+      super.throwPluginException(ctx, ex);
     } else {
 
       promise.complete();
       // 设置服务端响应
-      simpleExecutionContext.setProxyResult(response.bodyAsBuffer());
+      ctx.setProxyResult(response.bodyAsBuffer());
       // 设置网关响应结果
-      simpleExecutionContext.setRespResult(response.bodyAsBuffer());
+      ctx.setRespResult(response.bodyAsBuffer());
 
-      simpleExecutionContext.setProxyRespHeaders(response.headers());
+      ctx.setProxyRespHeaders(response.headers());
 
-      simpleExecutionContext.setRespHeaders(response.headers());
+      ctx.setRespHeaders(response.headers());
 
-      simpleExecutionContext.setProxyStatusCode(response.statusCode());
+      ctx.setProxyStatusCode(response.statusCode());
 
-      simpleExecutionContext.setProxyCookies(response.cookies());
+      ctx.setProxyCookies(response.cookies());
     }
   }
 
@@ -371,6 +373,8 @@ public class HttpProxyPlugin extends AbstractPlugin {
     webClientOptions.setConnectTimeout(3000);
 
     webClientOptions.setIdleTimeout(5000);
+
+    webClientOptions.setTrustAll(true).setVerifyHost(false);
 
     return context -> WebClient.create(vertx, webClientOptions);
   }

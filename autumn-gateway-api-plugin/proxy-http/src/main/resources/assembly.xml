@@ -16,11 +16,11 @@
                 <include>io.vertx:vertx-web-client</include>
                 <include>org.apache.httpcomponents:*</include>
             </includes>
-            <excludes>
-                <exclude>org.springframework:*</exclude>
-                <exclude>org.slf4j:*</exclude>
-                <!-- <exclude>com.vmware.fiaasco:plugin-boot</exclude> -->
-            </excludes>
+            <!--            <excludes>-->
+            <!--                <exclude>org.springframework:*</exclude>-->
+            <!--                <exclude>org.slf4j:*</exclude>-->
+            <!--                 <exclude>com.vmware.fiaasco:plugin-boot</exclude> -->
+            <!--            </excludes>-->
         </dependencySet>
     </dependencySets>
     <fileSets>

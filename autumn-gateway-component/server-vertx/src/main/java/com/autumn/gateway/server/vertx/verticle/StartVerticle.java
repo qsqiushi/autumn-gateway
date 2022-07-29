@@ -55,7 +55,7 @@ public class StartVerticle extends AbstractVerticle {
     router
         .route("/*")
         // .handler(BodyHandler.create())
-        .handler(globalApiHandler::handle)
+        .handler(globalApiHandler)
         .failureHandler(
             routingContext -> {
               Throwable throwable = routingContext.failure();
@@ -69,7 +69,7 @@ public class StartVerticle extends AbstractVerticle {
               }
             });
     httpServer
-        .requestHandler(router::handle)
+        .requestHandler(router)
         .exceptionHandler(
             ex -> {
               log.error("处理时出现异常", ex);

@@ -14,7 +14,6 @@ import com.google.gson.Gson;
 import io.netty.handler.codec.http.HttpHeaderValues;
 import io.vertx.core.MultiMap;
 import io.vertx.core.Vertx;
-import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.*;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.httpproxy.HttpProxy;
@@ -149,8 +148,8 @@ public class GlobalApiHandler implements IGlobalApiHandler {
    * We are only considering HTTP_1.x requests for now. There is a dedicated RFC to support
    * WebSockets over HTTP2: https://tools.ietf.org/html/rfc8441
    *
-   * @param httpServerRequest
-   * @return
+   * @param httpServerRequest httpServerRequest
+   * @return boolean
    */
   private boolean isWebSocket(HttpServerRequest httpServerRequest) {
     String connectionHeader = httpServerRequest.getHeader(HttpHeaders.CONNECTION);
