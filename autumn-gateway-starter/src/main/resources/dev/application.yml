@@ -1,5 +1,3 @@
-plugin:
-  folder: ./plugins
 spring:
   application:
     name: autumn-gateway
@@ -16,11 +14,15 @@ autumn:
     instances: 16
   zookeeper:
     cluster-Config:
-      zookeeperHosts: dev-fc2mw-agw-agwcore-zookeeper.qm.cn:32202
+      zookeeperHosts: 10.133.92.157:2181
       root-path: autumn.vertx
       retry:
         initialSleepTime: 3000
         maxTimes: 3
     sync-path: /autumn/gateway/sync
+plugin:
+  folder: /Users/qiushi/ideaProject/autumn-gateway/plugins
+
+
 
 

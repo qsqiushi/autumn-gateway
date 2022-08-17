@@ -15,7 +15,7 @@ import javax.annotation.Resource;
  */
 @Slf4j
 @Component
-public class ApiSyncVerticle extends AbstractVerticle {
+public class ApiRegisterDiscoverVerticle extends AbstractVerticle {
 
   @Resource private IApiRegisterService apiRegisterService;
 

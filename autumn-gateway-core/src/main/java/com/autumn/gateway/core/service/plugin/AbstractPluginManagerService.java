@@ -32,6 +32,7 @@ public abstract class AbstractPluginManagerService {
 
   public List<IPlugin> getPluginList(String bizId) {
 
+    //TODO 此处有死锁
     switch (refreshStatus) {
       case NOT_REFRESH:
         refresh(bizId);
@@ -137,7 +138,6 @@ public abstract class AbstractPluginManagerService {
           } catch (Exception ex) {
 
             log.error("API插件实例化异常", ex);
-            continue;
           }
         }
       }

@@ -9,8 +9,8 @@
     {
       "componentId": "cluster",
       "param": {
-        "zookeeperHosts": "127.0.0.1",
-        "rootPath": "io.vertx",
+        "zookeeperHosts": "10.133.92.157",
+        "rootPath": "autumn.vertx",
         "retry": {
           "initialSleepTime": 3000,
           "maxTimes": 3
@@ -100,9 +100,9 @@
     {
       "componentId": "syncZk",
       "param": {
-        "zkServer": "127.0.0.1:2181",
+        "zkServer": "10.133.92.157:2181",
         "sessionTimeOut": 10000,
-        "path": "/agw/sync",
+        "path": "/autumn/sync",
         "interval": 50000
       }
     }
