@@ -1,12 +1,5 @@
 package com.autumn.gateway;
 
-import io.netty.handler.codec.http2.Http2Headers;
-import io.vertx.core.http.HttpServerRequest;
-import io.vertx.core.http.impl.Http2ServerConnection;
-import io.vertx.core.http.impl.Http2ServerRequest;
-import io.vertx.core.impl.ContextInternal;
-import io.vertx.core.tracing.TracingPolicy;
-
 /**
  * @author qiushi
  * @program autumn-gateway
@@ -17,5 +10,6 @@ public class MainTest {
 
     public static void main(String[] args){
 
+        System.out.println("[{\"pluginId\":\"divide\",\"policyId\":\"a0fb8b75123f49d881e0ab0bd500a698\",\"name\":\"负载均衡分配插件\"},{\"pluginId\":\"httpProxy\",\"policyId\":\"a0fb8b75123f49d881e0ab0bd500a698\",\"name\":\"http代理插件\"}]");
     }
 }

@@ -12,7 +12,6 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-import com.autumn.gateway.config.ApplicationConfiger;
 import com.autumn.gateway.core.enums.SystemRunStateEnum;
 import com.autumn.gateway.core.enums.SystemStartTypeEnum;
 import com.autumn.gateway.core.enums.SystemStopTypeEnum;
@@ -137,21 +136,26 @@ public class ApplicationStarter implements ApplicationRunner {
 			}
 		})).collect(Collectors.toList());
 
-		CompositeFuture.all(futures).onSuccess(res -> {
-			log.info("all verticles have bean deployed");
+		CompositeFuture.all(futures).onComplete(asyncResult -> {
+			if (asyncResult.succeeded()) {
+				log.info("all verticles have bean deployed");
 
-			startServers();
+				startServers();
 
-			this.setRunState(SystemRunStateEnum.RUNNING);
+				this.setRunState(SystemRunStateEnum.RUNNING);
 
-			log.debug("system start finished with {} mode.", startType);
+				log.debug("system start finished with {} mode.", startType);
+			} else {
+				log.error("error",asyncResult.cause());
+			}
 		});
+
 	}
 
 	/**
 	 * 重启网关服务 若要重新加载配置 需要刷新系统配置
 	 *
-	 * @see ApplicationConfiger#refresh
+	 *
 	 * @param startType
 	 *            启动类型
 	 */

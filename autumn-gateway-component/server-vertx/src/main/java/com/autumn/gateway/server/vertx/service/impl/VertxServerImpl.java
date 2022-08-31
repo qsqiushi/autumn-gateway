@@ -1,15 +1,23 @@
 package com.autumn.gateway.server.vertx.service.impl;
 
-import com.autumn.gateway.core.service.server.IServer;
-import com.autumn.gateway.server.vertx.verticle.StartVerticle;
-import io.vertx.core.DeploymentOptions;
-import io.vertx.core.Vertx;
-import io.vertx.core.http.HttpServer;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
-import java.util.concurrent.TimeUnit;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+import com.autumn.gateway.core.service.server.IServer;
+import com.autumn.gateway.server.vertx.verticle.StartVerticle;
+
+import io.vertx.core.CompositeFuture;
+import io.vertx.core.DeploymentOptions;
+import io.vertx.core.Future;
+import io.vertx.core.Vertx;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @program autumn
@@ -21,69 +29,98 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class VertxServerImpl implements IServer {
 
-  @Resource private Vertx vertx;
+	@Resource
+	private Vertx vertx;
 
-  @Resource private StartVerticle startVerticle;
+	@Value("${autumn.server.instances:16}")
+	private Integer instances;
 
-  @Resource private HttpServer httpServer;
+	private Boolean started = false;
 
-  private Boolean started = false;
+	private List<String> verticleDeployIds;
 
-  /**
-   * <f服务是否启动>
-   *
-   * @return : boolean
-   * @author qiushi
-   * @updator qiushi
-   * @since 2021/8/23 09:51
-   */
-  @Override
-  public boolean isStarted() {
-    return started;
-  }
+	/**
+	 * <f服务是否启动>
+	 *
+	 * @return : boolean
+	 * @author qiushi
+	 * @updator qiushi
+	 * @since 2021/8/23 09:51
+	 */
+	@Override
+	public boolean isStarted() {
+		return started;
+	}
 
-  /**
-   * <启动服务>
-   *
-   * @return : void
-   * @author qiushi
-   * @updator qiushi
-   * @since 2021/8/10 09:17
-   */
-  @Override
-  public void start() {
+	/**
+	 * <启动服务>
+	 *
+	 * @return : void
+	 * @author qiushi
+	 * @updator qiushi
+	 * @since 2021/8/10 09:17
+	 */
+	@Override
+	public void start() {
 
-    if (isStarted()) {
-      log.info("server has bean started...");
-      return;
-    }
-    // 启动
-    DeploymentOptions deploymentOptions =
-        new DeploymentOptions()
-            .setMaxWorkerExecuteTime(3000)
-            .setMaxWorkerExecuteTimeUnit(TimeUnit.SECONDS);
+		if (isStarted()) {
+			log.info("server has bean started...");
+			return;
+		}
+		// 启动
+		DeploymentOptions deploymentOptions = new DeploymentOptions()
+				.setInstances(instances)
+				.setWorkerPoolSize(30)
+				.setMaxWorkerExecuteTime(3000)
+				.setMaxWorkerExecuteTimeUnit(TimeUnit.SECONDS);
 
-    vertx.deployVerticle(startVerticle, deploymentOptions);
+		vertx.deployVerticle(StartVerticle.class, deploymentOptions).onComplete(asyncResult -> {
 
-    started = true;
-  }
+			if (asyncResult.succeeded()) {
+				log.info("asyncResult DeployId [{}]", asyncResult.result());
 
-  /**
-   * <停止服务>
-   *
-   * @return : void
-   * @author qiushi
-   * @updator qiushi
-   * @since 2021/8/10 09:17
-   */
-  @Override
-  public void stop() {
+				if (verticleDeployIds == null) {
+					verticleDeployIds = new ArrayList<>();
+				}
+				verticleDeployIds.add(asyncResult.result());
+				started = true;
+			} else {
+				log.error("Deployment failed!", asyncResult.cause());
+			}
 
-    if (!isStarted()) {
-      log.info("server has bean stopped");
-    }
-    httpServer.close();
+		});
 
-    started = false;
-  }
+	}
+
+	/**
+	 * <停止服务>
+	 *
+	 * @author qiushi
+	 * @updator qiushi
+	 * @since 2021/8/10 09:17
+	 */
+	@Override
+	public void stop() {
+
+		if (!isStarted()) {
+			log.info("server has bean stopped");
+		}
+
+		if (verticleDeployIds != null) {
+			List<Future> futures = verticleDeployIds.stream().map(deployId -> Future.future(r -> {
+				vertx.undeploy(deployId);
+			})).collect(Collectors.toList());
+
+			CompositeFuture.all(futures).onComplete(asyncResult -> {
+
+				if (asyncResult.succeeded()) {
+					started = false;
+				} else {
+					log.error("关闭服务失败", asyncResult.cause());
+				}
+			});
+
+		}
+
+	}
 }

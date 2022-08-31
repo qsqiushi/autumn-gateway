@@ -1,12 +1,13 @@
 package com.autumn.gateway.server.vertx.config;
 
-import com.autumn.gateway.core.service.cluster.IVertxManagerService;
-import io.vertx.core.Vertx;
-import io.vertx.core.http.HttpServer;
+import javax.annotation.Resource;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
+import com.autumn.gateway.core.service.cluster.IVertxManagerService;
+
+import io.vertx.core.Vertx;
 
 /**
  * @author qiushi
@@ -17,18 +18,11 @@ import javax.annotation.Resource;
 @Component
 public class ServerBeanConfig {
 
-  @Resource private IVertxManagerService vertxManagerService;
+	@Resource
+	private IVertxManagerService vertxManagerService;
 
-  @Bean
-  public Vertx getVertx() {
-    return vertxManagerService.getVertx();
-  }
-
-  @Bean
-  public HttpServer getHttpServer() {
-
-    Vertx vertx = vertxManagerService.getVertx();
-    HttpServer httpServer = vertx.createHttpServer();
-    return httpServer;
-  }
+	@Bean
+	public Vertx getVertx() {
+		return vertxManagerService.getVertx();
+	}
 }
