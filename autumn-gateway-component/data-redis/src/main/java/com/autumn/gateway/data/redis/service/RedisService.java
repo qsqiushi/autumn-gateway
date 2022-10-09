@@ -353,4 +353,6 @@ public interface RedisService<T> {
    * @since 2021/12/14 18:56
    */
   Set<String> getKeys(String prefix);
+
+  void getKeysValues();
 }

@@ -51,7 +51,7 @@ public class RedisConfiguration {
     redisTemplate.setHashKeySerializer(new GenericToStringSerializer<>(Object.class));
     redisTemplate.setHashValueSerializer(new GenericToStringSerializer<>(Object.class));
     // 设置支持事务
-    redisTemplate.setEnableTransactionSupport(true);
+    redisTemplate.setEnableTransactionSupport(false);
 
     redisTemplate.afterPropertiesSet();
     if (log.isDebugEnabled()) {

@@ -17,7 +17,7 @@ import java.util.UUID;
 @SpringBootTest
 public class ApiInsertMainTest {
 
-  @Resource private RedisTemplate redisTemplate;
+  @Resource(name="redisTemplate") private RedisTemplate redisTemplate;
 
   @Test
   public void insertApiTest2() {

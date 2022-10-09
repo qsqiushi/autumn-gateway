@@ -40,4 +40,18 @@ public class UrlMatcherUtil {
   public static Map<String, String> extractUriTemplateVariables(String pattern, String reqPath) {
     return MATCHER.extractUriTemplateVariables(pattern, reqPath);
   }
+
+  /**
+   * <获取**部分>
+   *
+   * @param pattern example /api/**
+   * @param reqPath example /api/test/test
+   * @return java.lang.String example test/test
+   * @author qiushi
+   * @updater qiushi
+   * @since 2022/2/17 15:41
+   */
+  public static String extractPathWithinPattern(String pattern, String reqPath) {
+    return MATCHER.extractPathWithinPattern(pattern, reqPath);
+  }
 }

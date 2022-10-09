@@ -11,4 +11,7 @@ public class SpecialSymbolsConstants {
   public static final String DOUBLE_SLASH = "//";
 
   public static final String SLASH = "/";
+
+
+  public static final String DOUBLE_ASTERISK = "**";
 }

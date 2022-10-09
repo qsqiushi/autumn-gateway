@@ -1,5 +1,7 @@
 package com.autumn.gateway.api.plugin.core.api.handler;
 
+import com.autumn.gateway.api.plugin.core.api.pojo.Api;
+
 import io.vertx.core.Handler;
 import io.vertx.ext.web.RoutingContext;
 
@@ -9,4 +11,4 @@ import io.vertx.ext.web.RoutingContext;
  * @author qiushi
  * @since 2021-06-24 08:25
  */
-public interface IApiHandler extends Handler<RoutingContext>, ReactorHandler<RoutingContext> {}
+public interface IApiHandler extends Handler<RoutingContext>, ReactorHandler<RoutingContext, Api> {}

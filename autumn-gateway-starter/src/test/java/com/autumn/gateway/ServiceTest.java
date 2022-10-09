@@ -20,5 +20,7 @@ public class ServiceTest {
   @Test
   public void test() {
     System.out.println(redisService == null);
+
+    redisService.getKeysValues();
   }
 }

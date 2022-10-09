@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Plugin-Dependencies: 
+Plugin-Id: httpProxy
+Archiver-Version: Plexus Archiver
+Built-By: qiushi
+Plugin-Provider: qiushi
+Plugin-Version: 1.0.0
+Plugin-Class: com.autumn.gateway.api.plugin.proxy.http.pf4j.Pf4jPlugin
+Created-By: Apache Maven 3.8.6
+Build-Jdk: 1.8.0_201
+

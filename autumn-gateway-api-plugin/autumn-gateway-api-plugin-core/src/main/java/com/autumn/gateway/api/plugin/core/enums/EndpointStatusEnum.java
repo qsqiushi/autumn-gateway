@@ -7,9 +7,21 @@ package com.autumn.gateway.api.plugin.core.enums;
  * @since 2021/8/19 14:51
  */
 public enum EndpointStatusEnum {
+  /**
+   * UP 去异味
+   */
   UP(3),
+  /**
+   * DOWN 去异味
+   */
   DOWN(0),
+  /**
+   * TRANSITIONALLY_DOWN 去异味
+   */
   TRANSITIONALLY_DOWN(1),
+  /**
+   * TRANSITIONALLY_UP 去异味
+   */
   TRANSITIONALLY_UP(2);
 
   private final int code;

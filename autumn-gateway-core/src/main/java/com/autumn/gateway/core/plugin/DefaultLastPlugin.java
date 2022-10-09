@@ -1,17 +1,21 @@
 package com.autumn.gateway.core.plugin;
 
+import java.util.ArrayList;
+import java.util.Map;
+
+import org.springframework.stereotype.Component;
+
 import com.autumn.gateway.api.plugin.core.AbstractPlugin;
 import com.autumn.gateway.api.plugin.core.api.context.SimpleExecutionContext;
 import com.autumn.gateway.api.plugin.core.enums.ApiPluginTypeEnum;
 import com.autumn.gateway.api.plugin.core.pojo.PluginParam;
+import com.autumn.gateway.api.plugin.core.util.ReqRespUtil;
+import com.autumn.gateway.common.constant.HttpConstants;
 import com.autumn.gateway.common.enums.ResultCode;
 import com.autumn.gateway.common.pojo.builder.ResponseBuilder;
+
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.core.json.Json;
-import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.Map;
 
 /**
  * @author qiushi
@@ -21,6 +25,7 @@ import java.util.Map;
  */
 @Component
 public class DefaultLastPlugin extends AbstractPlugin {
+
   public DefaultLastPlugin(PluginParam pluginParam) {
     super(pluginParam);
   }
@@ -32,70 +37,70 @@ public class DefaultLastPlugin extends AbstractPlugin {
   /**
    * <执行插件>
    *
-   * @param simpleExecutionContext
-   * @return : void
+   * @param ctx 上下文
    * @author qiushi
-   * @updator qiushi
+   * @updater qiushi
    * @since 2021/7/12 14:05
    */
   @Override
-  protected void doExecute(SimpleExecutionContext simpleExecutionContext) {
+  protected void doExecute(SimpleExecutionContext ctx) {
 
-    // TODO  没有响应处理插件而引入的临时代码
-    if (!simpleExecutionContext.getRoutingContext().response().ended()) {
+    // 没有响应处理插件而引入的代码
+    if (!ctx.getRoutingContext().response().ended()) {
 
-      // @updator qius 检查是否有异常未处理，直接进行响应
+      // @updater JiangLei 检查是否有异常未处理，直接进行响应
       ArrayList<Map<String, Object>> exList =
-          (ArrayList<Map<String, Object>>)
-              simpleExecutionContext
-                  .getAttributes()
-                  .get(SimpleExecutionContext.ATTR_PLUGIN_EXCEPTION_LIST_KEY);
-      if (null != exList && exList.size() > 0) {
-        simpleExecutionContext
-            .getRoutingContext()
-            .response()
-            .end("{\"exceptionList\":" + Json.encode(exList) + "}");
+              (ArrayList<Map<String, Object>>)
+                      ctx.getAttributes().get(SimpleExecutionContext.ATTR_PLUGIN_EXCEPTION_LIST_KEY);
+      if (null != exList && !exList.isEmpty()) {
+        ctx.getRoutingContext()
+                .response()
+                .putHeader(HttpConstants.CONTENT_TYPE, HttpConstants.APPLICATION_JSON_VALUE_UTF8);
+
+        // 返回响应
+        ReqRespUtil.endResp(
+                ctx,
+                500,
+                Json.encode(
+                        ResponseBuilder.buildResponse(
+                                ResultCode.SVR_INNER_ERROR.getCode(),
+                                ResultCode.SVR_INNER_ERROR.getName(),
+                                exList.get(0))));
         return;
       }
 
-      if (simpleExecutionContext.getRespResultAfterRewrite() == null
-          && simpleExecutionContext.getRespResult() == null) {
-        simpleExecutionContext
-            .getRoutingContext()
-            .response()
-            .end(ResponseBuilder.failStr(ResultCode.NOT_FIND));
+      if (ctx.getRespResult() == null) {
+        ctx.getRoutingContext()
+                .response()
+                .putHeader(HttpConstants.CONTENT_TYPE, HttpConstants.APPLICATION_JSON_VALUE_UTF8);
+
+        // 返回响应
+        ReqRespUtil.endResp(
+                ctx, 500, ResponseBuilder.failStr(ResultCode.SVR_INNER_ERROR_NOT_RESULT));
+
         return;
       }
 
-      if (simpleExecutionContext.getRespResultAfterRewrite() != null) {
-        HttpServerResponse response = simpleExecutionContext.getRoutingContext().response();
-        response.headers().addAll(simpleExecutionContext.getRespHeaders());
-        response.headers().remove("Content-Length");
-        response
-            .headers()
-            .add(
-                "Content-Length", simpleExecutionContext.getRespResultAfterRewrite().length() + "");
-        response.end(simpleExecutionContext.getRespResultAfterRewrite());
-        return;
-      }
-      if (simpleExecutionContext.getRespResult() != null) {
-        HttpServerResponse response = simpleExecutionContext.getRoutingContext().response();
-        response.headers().addAll(simpleExecutionContext.getRespHeaders());
-        response.headers().remove("Content-Length");
-        response
-            .headers()
-            .add("Content-Length", simpleExecutionContext.getRespResult().length() + "");
-        response.end(simpleExecutionContext.getRespResult());
-        return;
-      }
+      HttpServerResponse response = ctx.getRoutingContext().response();
+      response.headers().addAll(ctx.getRespHeaders());
+      response.headers().remove(HttpConstants.CONTENT_LENGTH);
+      // Parse Error: "Content-Length" and "Transfer-Encoding" can't be present in the response
+      // headers together
+      response.headers().remove(HttpConstants.TRANSFER_ENCODING);
+      response
+              .headers()
+              .add(HttpConstants.CONTENT_LENGTH, ctx.getRespResult().getBytes().length + "");
+      // 返回响应
+      ReqRespUtil.endResp(ctx, 200, ctx.getRespResult());
     }
   }
+
   /**
    * <获得插件类型>
    *
    * @return :
    * @author qiushi
-   * @updator qiushi
+   * @updater qiushi
    * @since 2021/6/24 19:15
    */
   @Override
@@ -108,7 +113,7 @@ public class DefaultLastPlugin extends AbstractPlugin {
    *
    * @return : java.lang.Boolean
    * @author qiushi
-   * @updator qiushi
+   * @updater qiushi
    * @since 2021/9/7 09:10
    */
   @Override
@@ -121,7 +126,7 @@ public class DefaultLastPlugin extends AbstractPlugin {
    *
    * @return : java.lang.String
    * @author qiushi
-   * @updator qiushi
+   * @updater qiushi
    * @since 2021/9/7 09:48
    */
   @Override

@@ -2,6 +2,7 @@ package com.autumn.gateway.api.plugin.core;
 
 import com.autumn.gateway.api.plugin.core.api.context.SimpleExecutionContext;
 import com.autumn.gateway.api.plugin.core.api.handler.ReactorHandler;
+import com.autumn.gateway.api.plugin.core.api.pojo.Api;
 import com.autumn.gateway.api.plugin.core.enums.ApiPluginTypeEnum;
 
 /**
@@ -15,10 +16,9 @@ public interface IPlugin {
   /**
    * <获得插件类型>
    *
-   * @param
-   * @return :
+   * @return ApiPluginTypeEnum
    * @author qiushi
-   * @updator qiushi
+   * @updater qiushi
    * @since 2021/6/24 19:15
    */
   ApiPluginTypeEnum getPluginType();
@@ -26,21 +26,21 @@ public interface IPlugin {
   /**
    * <执行>
    *
-   * @param simpleExecutionContext
-   * @param handler
-   * @return : void
+   * @param simpleExecutionContext 上下文
+   * @param handler handler
    * @author qiushi
-   * @updator qiushi
+   * @updater qiushi
    * @since 2021/6/5 14:54
    */
-  void execute(SimpleExecutionContext simpleExecutionContext, ReactorHandler handler);
+  void execute(
+          SimpleExecutionContext simpleExecutionContext,
+          ReactorHandler<SimpleExecutionContext, Api> handler);
   /**
    * <如果上下文中存在错误是否继续执行>
    *
-   * @param
-   * @return : java.lang.Boolean
+   * @return java.lang.Boolean
    * @author qiushi
-   * @updator qiushi
+   * @updater qiushi
    * @since 2021/9/7 09:10
    */
   Boolean errorEncounteredContinue();
@@ -48,10 +48,9 @@ public interface IPlugin {
   /**
    * <>
    *
-   * @param
-   * @return : java.lang.String
+   * @return java.lang.String
    * @author qiushi
-   * @updator qiushi
+   * @updater qiushi
    * @since 2021/9/7 09:48
    */
   String getPluginId();

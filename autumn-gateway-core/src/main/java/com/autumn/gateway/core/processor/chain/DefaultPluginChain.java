@@ -1,15 +1,19 @@
 package com.autumn.gateway.core.processor.chain;
 
+import java.util.Iterator;
+import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.logging.log4j.ThreadContext;
+
 import com.autumn.gateway.api.plugin.core.IPlugin;
 import com.autumn.gateway.api.plugin.core.api.context.SimpleExecutionContext;
 import com.autumn.gateway.api.plugin.core.api.handler.ReactorHandler;
 import com.autumn.gateway.api.plugin.core.api.pojo.Api;
-import com.autumn.gateway.api.plugin.core.api.pojo.Reactable;
-import io.vertx.core.Handler;
-import org.apache.logging.log4j.ThreadContext;
+import com.autumn.gateway.common.constant.ReqConstants;
 
-import java.util.Iterator;
-import java.util.List;
+import io.vertx.core.Handler;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @program qm-gateway
@@ -17,67 +21,109 @@ import java.util.List;
  * @author qiushi
  * @since 2021-06-17 08:54
  */
+@Slf4j
 public class DefaultPluginChain
-    implements Handler<SimpleExecutionContext>, ReactorHandler<SimpleExecutionContext> {
+		implements Handler<SimpleExecutionContext>, ReactorHandler<SimpleExecutionContext, Api> {
 
-  private final Iterator<IPlugin> pluginIterator;
+	private final Iterator<IPlugin> pluginIterator;
 
-  private final Api api;
+	private final Api api;
 
-  private Handler<SimpleExecutionContext> afterHandler;
+	private Handler<SimpleExecutionContext> afterHandler;
 
-  public DefaultPluginChain(List<IPlugin> plugins, Api api) {
-    this.pluginIterator = plugins.iterator();
-    this.api = api;
-  }
+	private String current;
 
-  public boolean hasNext() {
-    return pluginIterator.hasNext();
-  }
+	private Long start;
 
-  public IPlugin next() {
-    return pluginIterator.next();
-  }
+	public DefaultPluginChain(List<IPlugin> plugins, Api api) {
+		this.pluginIterator = plugins.iterator();
+		this.api = api;
+	}
 
-  protected IPlugin next(IPlugin plugin) {
-    return next();
-  }
+	public boolean hasNext() {
+		return pluginIterator.hasNext();
+	}
 
-  @Override
-  public Reactable getReactable() {
-    return this.api;
-  }
+	public IPlugin next() {
+		return pluginIterator.next();
+	}
 
-  public DefaultPluginChain afterHandler(Handler afterHandler) {
-    this.afterHandler = afterHandler;
-    return this;
-  }
+	@Override
+	public Api getReactable() {
+		return this.api;
+	}
 
-  /**
-   * Something has happened, so handle it.
-   *
-   * @param simpleExecutionContext the event to handle
-   */
-  @Override
-  public void handle(SimpleExecutionContext simpleExecutionContext) {
-    doNext(simpleExecutionContext);
-  }
+	public DefaultPluginChain afterHandler(Handler<SimpleExecutionContext> afterHandler) {
+		this.afterHandler = afterHandler;
+		return this;
+	}
 
-  private void doNext(SimpleExecutionContext simpleExecutionContext) {
+	/**
+	 * Something has happened, so handle it.
+	 *
+	 * @param simpleExecutionContext
+	 *            the event to handle
+	 */
+	@Override
+	public void handle(SimpleExecutionContext simpleExecutionContext) {
+		doNext(simpleExecutionContext);
+	}
 
-    if (pluginIterator != null && hasNext()) {
+	private void doNext(SimpleExecutionContext ctx) {
 
-      IPlugin plugin = pluginIterator.next();
+		if (pluginIterator != null && hasNext()) {
 
-      plugin.execute(simpleExecutionContext, this);
+			recordPluginTakes(ctx);
+			// 获取插件
+			IPlugin plugin = pluginIterator.next();
+			current = plugin.getPluginId();
+			// 开始时间
+			start = System.currentTimeMillis();
+			if (log.isDebugEnabled()) {
+				log.debug("[{}]插件开始处理[{}]", current, api.getName());
+			}
+			plugin.execute(ctx, this);
 
-      // 在 plugin.execute 中调用 handle方法
-      // doNext(event, api);
-    } else {
-      if (afterHandler != null) {
-        afterHandler.handle(simpleExecutionContext);
-      }
-      ThreadContext.clearAll();
-    }
-  }
+		} else {
+
+			recordPluginTakes(ctx);
+			if (afterHandler != null) {
+				afterHandler.handle(ctx);
+			}
+			recordCost(ctx);
+		}
+	}
+
+	private void recordPluginTakes(SimpleExecutionContext ctx) {
+		if (StringUtils.isNotBlank(current) && start != null) {
+			long takes = System.currentTimeMillis() - start;
+			if (log.isDebugEnabled()) {
+				log.debug("[{}]插件处理[{}]完毕,耗时[{}]", current, api.getName(), takes);
+			}
+			ctx.getAttributes().put(SimpleExecutionContext.ATTR_TAKE_TIMES + current, takes);
+		}
+	}
+
+	/**
+	 * 修复异味
+	 * 
+	 * @param ctx
+	 * @author 李鹤
+	 * @time 2022/7/1 13:06
+	 *       long start =
+	 *       Long.parseLong(ThreadContext.get(ReqConstants.START_TIME));
+	 *       long takes = System.currentTimeMillis() - start;
+	 */
+	public void recordCost(SimpleExecutionContext ctx) {
+		if (StringUtils.isNumeric(ThreadContext.get(ReqConstants.START_TIME))) {
+			long startTime = Long.parseLong(ThreadContext.get(ReqConstants.START_TIME));
+			long takes = System.currentTimeMillis() - startTime;
+			if (log.isDebugEnabled()) {
+				log.debug("API[{}]整个请求耗时[{}]ms", ctx.getRoutingContext().request().absoluteURI(), takes);
+			}
+			ctx.getAttributes()
+					.put(SimpleExecutionContext.ATTR_TAKE_TIMES + "all", takes);
+			ThreadContext.clearAll();
+		}
+	}
 }
