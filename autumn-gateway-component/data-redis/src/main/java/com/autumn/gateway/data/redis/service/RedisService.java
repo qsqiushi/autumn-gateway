@@ -354,5 +354,6 @@ public interface RedisService<T> {
    */
   Set<String> getKeys(String prefix);
 
-  void getKeysValues();
+
+  Set<String> scan(String pattern);
 }

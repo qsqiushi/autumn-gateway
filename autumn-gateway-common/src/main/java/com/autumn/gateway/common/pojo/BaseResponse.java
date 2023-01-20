@@ -2,9 +2,7 @@ package com.autumn.gateway.common.pojo;
 
 import com.autumn.gateway.common.enums.CommonEnum;
 import com.autumn.gateway.common.enums.ResultCode;
-import lombok.Data;
-import lombok.ToString;
-import lombok.experimental.Accessors;
+
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -15,9 +13,6 @@ import java.util.Objects;
  * @author qiushi
  * @since 2021-07-29 14:08
  */
-@Data
-@Accessors(chain = true)
-@ToString
 public class BaseResponse<T> implements BaseResult<T>, Serializable {
 
   /** 错误码 */
@@ -28,6 +23,33 @@ public class BaseResponse<T> implements BaseResult<T>, Serializable {
 
   /** 数据 */
   private T data;
+
+  @Override
+  public int getCode() {
+    return code;
+  }
+
+  public void setCode(int code) {
+    this.code = code;
+  }
+
+  @Override
+  public String getMsg() {
+    return msg;
+  }
+
+  public void setMsg(String msg) {
+    this.msg = msg;
+  }
+
+  @Override
+  public T getData() {
+    return data;
+  }
+
+  public void setData(T data) {
+    this.data = data;
+  }
 
   public BaseResponse() {}
 

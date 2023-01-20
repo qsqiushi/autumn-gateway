@@ -2,6 +2,8 @@ package com.autumn.gateway.api.plugin.core.pojo;
 
 import io.vertx.circuitbreaker.CircuitBreaker;
 import io.vertx.circuitbreaker.CircuitBreakerState;
+import io.vertx.circuitbreaker.RetryPolicy;
+import io.vertx.core.AsyncResult;
 import io.vertx.core.Future;
 import io.vertx.core.Handler;
 import io.vertx.core.Promise;
@@ -62,8 +64,18 @@ public class AutumnCircuitBreaker implements CircuitBreaker, Comparable<AutumnCi
   }
 
   @Override
+  public <T> void executeWithFallback(Handler<Promise<T>> command, Function<Throwable, T> fallback, Handler<AsyncResult<T>> handler) {
+    CircuitBreaker.super.executeWithFallback(command, fallback, handler);
+  }
+
+  @Override
   public <T> Future<T> execute(Handler<Promise<T>> handler) {
     return circuitBreaker.execute(handler);
+  }
+
+  @Override
+  public <T> void execute(Handler<Promise<T>> command, Handler<AsyncResult<T>> handler) {
+    CircuitBreaker.super.execute(command, handler);
   }
 
   @Override
@@ -110,6 +122,11 @@ public class AutumnCircuitBreaker implements CircuitBreaker, Comparable<AutumnCi
   @Override
   public CircuitBreaker retryPolicy(Function<Integer, Long> function) {
     return circuitBreaker.retryPolicy(function);
+  }
+
+  @Override
+  public CircuitBreaker retryPolicy(RetryPolicy retryPolicy) {
+    return circuitBreaker.retryPolicy(retryPolicy);
   }
 
   /**

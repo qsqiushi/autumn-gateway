@@ -1,17 +1,9 @@
 package com.autumn.gateway.api.plugin.core.api.context;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.lang.StringUtils;
-
 import com.autumn.gateway.api.plugin.core.api.pojo.AgwFileUpload;
 import com.autumn.gateway.api.plugin.core.api.pojo.Api;
 import com.autumn.gateway.common.constant.ReqConstants;
 import com.autumn.gateway.common.util.UrlMatcherUtil;
-import com.sun.jmx.snmp.ThreadContext;
-
 import io.vertx.core.MultiMap;
 import io.vertx.core.http.impl.headers.HeadersMultiMap;
 import io.vertx.ext.web.FileUpload;
@@ -19,6 +11,12 @@ import io.vertx.ext.web.RoutingContext;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
+import org.apache.logging.log4j.ThreadContext;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @program autumn-gateway
@@ -230,8 +228,10 @@ public class SimpleExecutionContext {
 
   public SimpleExecutionContext(RoutingContext routingContext, Api api) {
 
-    if (StringUtils.isNumeric((String) ThreadContext.get(ReqConstants.START_TIME))) {
-      this.startTime = Long.parseLong((String) ThreadContext.get(ReqConstants.START_TIME));
+
+
+    if (StringUtils.isNumeric(ThreadContext.get(ReqConstants.START_TIME))) {
+      this.startTime = Long.parseLong(ThreadContext.get(ReqConstants.START_TIME));
     } else {
       this.startTime = System.currentTimeMillis();
     }

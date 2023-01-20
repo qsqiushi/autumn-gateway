@@ -1,23 +1,16 @@
 package com.autumn.gateway.data.redis.service.impl;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.TimeUnit;
-
-import javax.annotation.Resource;
-
+import com.autumn.gateway.common.exception.BizRunTimeException;
+import com.autumn.gateway.data.redis.service.RedisService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.*;
 import org.springframework.data.redis.core.script.RedisScript;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import com.autumn.gateway.common.exception.BizRunTimeException;
-import com.autumn.gateway.data.redis.service.RedisService;
-import com.google.common.collect.Maps;
-
-import lombok.extern.slf4j.Slf4j;
+import javax.annotation.Resource;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 调用lua 脚本
@@ -730,19 +723,29 @@ public class RedisServiceImpl<T> implements RedisService<T> {
 		return redisTemplate.keys(prefix);
 	}
 
+	/**
+	 * scan 实现
+	 *
+	 * @param redisTemplate
+	 *            redisTemplate
+	 * @param pattern
+	 *            表达式，如：abc*，找出所有以abc开始的键
+	 */
 	@Override
-	public void getKeysValues() {
+	public Set<String> scan(String pattern) {
+		ScanOptions scanOptions = ScanOptions.scanOptions().match(pattern)
+				.count(10000).build();
+		return redisTemplate.execute((RedisCallback<Set<String>>) connection -> {
+			Set<String> keysTmp = new HashSet<>();
+			try (Cursor<byte[]> cursor = connection.scan(scanOptions)) {
 
-		String pattern = "autumn:gateway:api:url&";
-		Map<String, Object> resMap = Maps.newHashMap();
-		BoundHashOperations<String, String, String> boundHashOps = redisTemplate.boundHashOps(pattern);
-		try (Cursor<Map.Entry<String, String>> cursor = boundHashOps
-				.scan(ScanOptions.scanOptions().count(100).build())) {
-			while (cursor.hasNext()) {
-				Map.Entry<String, String> entry = cursor.next();
-				// do sth.
-				System.out.println(entry.getKey() + "=====" + entry.getValue());
+				while (cursor.hasNext()) {
+					keysTmp.add(new String(cursor.next()));
+				}
+			} catch (Exception e) {
+				throw new RuntimeException(e);
 			}
-		}
+			return keysTmp;
+		});
 	}
 }

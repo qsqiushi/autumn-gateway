@@ -1,22 +1,19 @@
 package com.autumn.gateway.component.api.discover.service.impl;
 
-import java.util.*;
-import java.util.stream.Collectors;
-
-import javax.annotation.Resource;
-
-import org.apache.commons.beanutils.BeanUtils;
-import org.springframework.stereotype.Service;
-
 import com.autumn.gateway.api.plugin.core.api.pojo.Api;
 import com.autumn.gateway.api.plugin.core.api.pojo.PluginConfigInfo;
 import com.autumn.gateway.component.api.discover.enums.RedisKeyEnums;
 import com.autumn.gateway.core.service.discover.IApiDiscovererService;
 import com.autumn.gateway.data.redis.service.RedisService;
-
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.beanutils.BeanUtils;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.*;
+import java.util.stream.Collectors;
 /**
  * @program  autumn
  * @description
@@ -41,7 +38,7 @@ public class RedisApiDiscovererServiceImpl implements IApiDiscovererService {
 
     String prefix = RedisKeyEnums.GATEWAY_API_URL.getPrefix().concat("*");
     // 找到redisAPI 所有的key
-    Set<String> apiKeys = redisService.getKeys(prefix);
+    Set<String> apiKeys = redisService.scan(prefix);
     for (String key : apiKeys) {
       // 找到对应的hash
       Map<String, String> objectMap = redisService.hmget(key);

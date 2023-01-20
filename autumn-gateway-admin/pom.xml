@@ -16,8 +16,8 @@
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
-        <spring.cloud-version>2021.0.3</spring.cloud-version>
-        <org.projectlombok.version>1.18.20</org.projectlombok.version>
+        <spring.cloud-version>2022.0.0</spring.cloud-version>
+        <org.projectlombok.version>1.18.24</org.projectlombok.version>
         <fluent.mybatis.version>1.9.8</fluent.mybatis.version>
     </properties>
 
@@ -132,6 +132,28 @@
             <artifactId>gson</artifactId>
             <scope>test</scope>
         </dependency>
+
+
+<!--        &lt;!&ndash;强制排除 logback 的依赖&ndash;&gt;-->
+<!--        &lt;!&ndash;连接器只能有一个：slf4j-log4j12与logback-basic不能共存 &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>ch.qos.logback</groupId>-->
+<!--            <artifactId>logback-classic</artifactId>-->
+<!--            <version>999-not-exist</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>ch.qos.logback</groupId>-->
+<!--            <artifactId>logback-core</artifactId>-->
+<!--            <version>999-not-exist-v1</version>-->
+<!--        </dependency>-->
+
+
+        <dependency>
+            <groupId>cn.kstry.framework</groupId>
+            <artifactId>kstry-core</artifactId>
+            <version>1.0.11</version>
+        </dependency>
+
 
     </dependencies>
 

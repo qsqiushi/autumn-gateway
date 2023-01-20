@@ -1,10 +1,12 @@
 package com.autumn.gateway;
 
 import com.autumn.gateway.data.redis.service.RedisService;
+import io.vertx.core.json.Json;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
+import java.util.Set;
 
 /**
  * @author qiushi
@@ -21,6 +23,10 @@ public class ServiceTest {
   public void test() {
     System.out.println(redisService == null);
 
-    redisService.getKeysValues();
+    Set<String> set = redisService.scan("autumn:gateway:api:url&*");
+
+    System.out.println(Json.encode(set));
+
+
   }
 }
