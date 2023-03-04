@@ -3,9 +3,8 @@ package com.autumn.gateway.vertx.verticle;
 import com.autumn.gateway.core.service.register.IApiRegisterService;
 import io.vertx.core.AbstractVerticle;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.Resource;
 
 /**
  * @program autumn-gateway
@@ -17,7 +16,8 @@ import javax.annotation.Resource;
 @Component
 public class ApiRegisterDiscoverVerticle extends AbstractVerticle {
 
-  @Resource private IApiRegisterService apiRegisterService;
+  @Autowired
+  private IApiRegisterService apiRegisterService;
 
   @Override
   public void start() throws Exception {

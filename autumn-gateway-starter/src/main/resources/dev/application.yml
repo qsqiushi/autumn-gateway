@@ -3,10 +3,12 @@ spring:
     name: autumn-gateway
   profiles:
     active: test
-  redis:
-    host: 10.133.92.157
-    password: redis@2021
-    database: 7
+  data:
+    redis:
+      host: qkp-dev-mc6-mw.qm.cn
+      port: 33000
+      password: devApinewredis@2022
+      database: 7
 autumn:
   server:
     bodyLimit: 150
@@ -14,7 +16,7 @@ autumn:
     instances: 16
   zookeeper:
     cluster-Config:
-      zookeeperHosts: 10.133.92.157:2181
+      zookeeperHosts: qkp-dev-mc6-mw.qm.cn:32202
       root-path: autumn.vertx
       retry:
         initialSleepTime: 3000

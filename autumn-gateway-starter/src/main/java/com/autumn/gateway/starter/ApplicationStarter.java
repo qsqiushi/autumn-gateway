@@ -1,17 +1,5 @@
 package com.autumn.gateway.starter;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
-
-import javax.annotation.Resource;
-
-import org.springframework.boot.ApplicationArguments;
-import org.springframework.boot.ApplicationRunner;
-import org.springframework.stereotype.Component;
-
 import com.autumn.gateway.core.enums.SystemRunStateEnum;
 import com.autumn.gateway.core.enums.SystemStartTypeEnum;
 import com.autumn.gateway.core.enums.SystemStopTypeEnum;
@@ -19,9 +7,18 @@ import com.autumn.gateway.core.server.IServerManager;
 import com.autumn.gateway.core.service.server.IServer;
 import com.autumn.gateway.vertx.verticle.ApiRegisterDiscoverVerticle;
 import com.autumn.gateway.vertx.verticle.PluginLoadVerticle;
-
 import io.vertx.core.*;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
+import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 /**
  * 系统启动器
@@ -31,22 +28,26 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Component
 public class ApplicationStarter implements ApplicationRunner {
+	static {
+		System.out.println("ApplicationStarter");
+	}
 
-	@Resource
+
+	@Autowired
 	private IServerManager serverManager;
 
-	@Resource
+	@Autowired
 	private Vertx vertx;
 
 	/**
 	 * API的注册和发现组件
 	 */
-	@Resource
+	@Autowired
 	private ApiRegisterDiscoverVerticle apiRegisterDiscoverVerticle;
 	/**
 	 * 加载插件组件
 	 */
-	@Resource
+	@Autowired
 	private PluginLoadVerticle pluginLoadVerticle;
 	/** 网关当前运行状态 */
 	private SystemRunStateEnum runState = SystemRunStateEnum.STOPPED;

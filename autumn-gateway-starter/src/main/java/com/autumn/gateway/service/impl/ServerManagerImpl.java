@@ -3,18 +3,14 @@ package com.autumn.gateway.service.impl;
 import com.autumn.gateway.core.server.IServerManager;
 import com.autumn.gateway.core.service.cluster.IVertxManagerService;
 import com.autumn.gateway.core.service.discover.IApiDiscovererService;
-import com.autumn.gateway.core.service.policy.provider.IAppPolicyProvider;
-import com.autumn.gateway.core.service.policy.provider.IProductClassifyPolicyProvider;
-import com.autumn.gateway.core.service.policy.provider.IProductPolicyProvider;
-import com.autumn.gateway.core.service.policy.provider.ISysPolicyProvider;
 import com.autumn.gateway.core.service.register.IApiRegisterService;
 import com.autumn.gateway.core.service.server.IServer;
 import io.vertx.core.Future;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
 import java.util.Collection;
 import java.util.Map;
 
@@ -28,7 +24,8 @@ import java.util.Map;
 @Component
 public class ServerManagerImpl implements IServerManager {
 
-  @Resource private ApplicationContext applicationContext;
+  @Autowired
+  private ApplicationContext applicationContext;
 
   @Override
   public Future<Collection<IServer>> startServers() {

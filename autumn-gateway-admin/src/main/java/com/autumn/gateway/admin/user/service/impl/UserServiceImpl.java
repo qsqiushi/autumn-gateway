@@ -19,7 +19,8 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements IUserService {
 
-  @Resource private UserInfoMapper userInfoMapper;
+  @Resource
+  private UserInfoMapper userInfoMapper;
 
   public List<UserInfo> selectAll() {
 

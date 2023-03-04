@@ -30,7 +30,8 @@ public class PluginChainProvider {
   private List<IPlugin> apiPluginList = new ArrayList<>();
 
   /** 插件策略提供器 */
-  @Resource private IPluginPolicyProvider pluginPolicyProvider;
+  @Resource
+  private IPluginPolicyProvider pluginPolicyProvider;
 
   @Resource private AbstractSysPluginManagerService sysPluginManagerService;
 

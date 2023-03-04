@@ -3,12 +3,12 @@ package com.autumn.gateway.data.redis.service.impl;
 import com.autumn.gateway.common.exception.BizRunTimeException;
 import com.autumn.gateway.data.redis.service.RedisService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.*;
 import org.springframework.data.redis.core.script.RedisScript;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import javax.annotation.Resource;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class RedisServiceImpl<T> implements RedisService<T> {
 
-	@Resource
+	@Autowired
 	private RedisTemplate<String, T> redisTemplate;
 
 	@Override

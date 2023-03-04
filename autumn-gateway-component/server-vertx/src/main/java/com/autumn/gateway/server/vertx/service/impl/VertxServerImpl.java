@@ -1,23 +1,20 @@
 package com.autumn.gateway.server.vertx.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
-
-import javax.annotation.Resource;
-
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-
 import com.autumn.gateway.core.service.server.IServer;
 import com.autumn.gateway.server.vertx.verticle.StartVerticle;
-
 import io.vertx.core.CompositeFuture;
 import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Future;
 import io.vertx.core.Vertx;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 /**
  * @program autumn
@@ -29,7 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class VertxServerImpl implements IServer {
 
-	@Resource
+	@Autowired
 	private Vertx vertx;
 
 	@Value("${autumn.server.instances:16}")

@@ -1,13 +1,10 @@
 package com.autumn.gateway.server.vertx.config;
 
-import javax.annotation.Resource;
-
+import com.autumn.gateway.core.service.cluster.IVertxManagerService;
+import io.vertx.core.Vertx;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
-
-import com.autumn.gateway.core.service.cluster.IVertxManagerService;
-
-import io.vertx.core.Vertx;
 
 /**
  * @author qiushi
@@ -18,7 +15,7 @@ import io.vertx.core.Vertx;
 @Component
 public class ServerBeanConfig {
 
-	@Resource
+	@Autowired
 	private IVertxManagerService vertxManagerService;
 
 	@Bean

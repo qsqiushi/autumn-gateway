@@ -9,10 +9,10 @@ import com.autumn.gateway.core.service.register.IApiRegisterService;
 import io.vertx.core.http.HttpServerRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import javax.annotation.Resource;
 import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
@@ -31,9 +31,10 @@ public class ApiRegisterServiceImpl implements IApiRegisterService {
 
   private Map<String, Api> apis;
 
-  @Resource private IApiDiscovererService apiDiscovererService;
+  @Autowired
+  private IApiDiscovererService apiDiscovererService;
 
-  @Resource private EventManager eventManager;
+  @Autowired private EventManager eventManager;
 
   /**
    * Register an API definition. It is a "create or update" operation, if the api was previously

@@ -4,10 +4,9 @@ import com.autumn.gateway.core.service.plugin.AbstractSysPluginManagerService;
 import com.autumn.gateway.core.service.policy.provider.IBaseBizPolicyProvider;
 import com.autumn.gateway.core.service.policy.provider.IPluginPolicyProvider;
 import com.autumn.gateway.core.service.policy.provider.ISysPolicyProvider;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
 
 /**
  * @author qiushi
@@ -18,11 +17,12 @@ import javax.annotation.Resource;
 @Service
 public class SysPluginManagerServiceImpl extends AbstractSysPluginManagerService {
 
-  @Resource private ISysPolicyProvider sysPolicyProvider;
+  @Autowired
+  private ISysPolicyProvider sysPolicyProvider;
 
-  @Resource private IPluginPolicyProvider pluginPolicyProvider;
+  @Autowired private IPluginPolicyProvider pluginPolicyProvider;
 
-  @Resource private ApplicationContext applicationContext;
+  @Autowired private ApplicationContext applicationContext;
 
   /**
    * <获得策略提供者>

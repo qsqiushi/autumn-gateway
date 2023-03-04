@@ -1,10 +1,5 @@
 package com.autumn.gateway.starter.api.handler;
 
-import javax.annotation.PreDestroy;
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Component;
-
 import com.autumn.gateway.api.plugin.core.api.context.SimpleExecutionContext;
 import com.autumn.gateway.api.plugin.core.api.handler.IApiHandler;
 import com.autumn.gateway.api.plugin.core.api.pojo.Api;
@@ -12,9 +7,12 @@ import com.autumn.gateway.core.handler.ReactorHandlerManager;
 import com.autumn.gateway.core.processor.chain.DefaultPluginChain;
 import com.autumn.gateway.core.processor.provider.PluginChainProvider;
 import com.autumn.gateway.service.IApiContextManagerService;
-
 import io.vertx.ext.web.RoutingContext;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.PreDestroy;
 
 /**
  * @program autumn-gateway
@@ -26,13 +24,14 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class ApiHandlerImpl implements IApiHandler {
 
-  @Resource private Api api;
+  @Autowired
+  private Api api;
 
-  @Resource private PluginChainProvider pluginChainProvider;
+  @Autowired private PluginChainProvider pluginChainProvider;
 
-  @Resource private ReactorHandlerManager reactorHandlerManager;
+  @Autowired private ReactorHandlerManager reactorHandlerManager;
 
-  @Resource private IApiContextManagerService apiContextManagerService;
+  @Autowired private IApiContextManagerService apiContextManagerService;
 
   @Override
   public void handle(RoutingContext routingContext) {

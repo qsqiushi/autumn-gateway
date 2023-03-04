@@ -3,10 +3,10 @@ package com.autumn.gateway.listener;
 import com.autumn.gateway.core.event.EventManager;
 import com.autumn.gateway.core.event.enums.ApiReactorEvent;
 import com.autumn.gateway.core.event.enums.SyncReactorEvent;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
 
 /**
  * @program autumn-gateway
@@ -17,11 +17,16 @@ import javax.annotation.Resource;
 @Component
 public class ListenerManager {
 
-  @Resource private ApiReactorEventListener apiRegisterEventListener;
+  static {
+    System.out.println("listener manager");
+  }
 
-  @Resource private SyncReactorEventListener syncReactorEventListener;
+  @Autowired private ApiReactorEventListener apiRegisterEventListener;
 
-  @Resource private EventManager eventManager;
+  @Autowired private SyncReactorEventListener syncReactorEventListener;
+
+  @Autowired
+  private EventManager eventManager;
 
   @PostConstruct
   public void subscribeForEvents() {

@@ -3,9 +3,8 @@ package com.autumn.gateway.vertx.verticle;
 import com.autumn.gateway.service.IPf4jPluginManagerService;
 import io.vertx.core.AbstractVerticle;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.Resource;
 
 /**
  * @program autumn-gateway
@@ -17,7 +16,8 @@ import javax.annotation.Resource;
 @Component
 public class PluginLoadVerticle extends AbstractVerticle {
 
-  @Resource private IPf4jPluginManagerService pluginManagerService;
+  @Autowired
+  private IPf4jPluginManagerService pluginManagerService;
 
   @Override
   public void start() throws Exception {

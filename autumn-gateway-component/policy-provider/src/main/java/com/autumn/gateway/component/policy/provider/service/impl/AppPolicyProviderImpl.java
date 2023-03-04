@@ -7,9 +7,9 @@ import com.autumn.gateway.component.policy.provider.util.PolicyUtil;
 import com.autumn.gateway.core.service.policy.provider.IAppPolicyProvider;
 import com.autumn.gateway.data.redis.service.RedisService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -22,7 +22,8 @@ import java.util.List;
 @Service
 public class AppPolicyProviderImpl implements IAppPolicyProvider {
 
-  @Resource private RedisService<String> redisService;
+  @Autowired
+  private RedisService<String> redisService;
 
   /**
    * <获取插件信息>

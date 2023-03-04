@@ -11,10 +11,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.pf4j.PluginState;
 import org.pf4j.PluginWrapper;
 import org.pf4j.spring.SpringPluginManager;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import javax.annotation.Resource;
 import java.nio.file.Paths;
 import java.util.List;
 
@@ -28,7 +28,8 @@ import java.util.List;
 @Service
 public class Pf4jPluginManagerServiceImpl implements IPf4jPluginManagerService {
 
-  @Resource private SpringPluginManager springPluginManager;
+  @Autowired
+  private SpringPluginManager springPluginManager;
 
   /**
    * <加载插件>

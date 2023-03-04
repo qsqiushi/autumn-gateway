@@ -1,16 +1,14 @@
 package com.autumn.gateway.api.plugin.divide.pf4j;
 
-import javax.annotation.Resource;
-
-import org.pf4j.Extension;
-import org.pf4j.PluginWrapper;
-
 import com.autumn.gateway.api.plugin.core.IPluginFactoryExtensionPoint;
 import com.autumn.gateway.api.plugin.core.factory.IPluginFactory;
 import com.autumn.gateway.api.plugin.core.pf4j.AbstractSpringPlugin;
 import com.autumn.gateway.api.plugin.divide.DividePluginFactory;
-
 import lombok.extern.slf4j.Slf4j;
+import org.pf4j.Extension;
+import org.pf4j.PluginWrapper;
+
+import javax.annotation.Resource;
 
 /**
  * @program agw

@@ -4,9 +4,9 @@ import com.autumn.gateway.admin.user.entity.UserInfo;
 import com.autumn.gateway.admin.user.service.impl.UserServiceImpl;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -18,7 +18,8 @@ import java.util.List;
 @SpringBootTest
 public class UserServiceTest {
 
-  @Resource private UserServiceImpl userService;
+  @Autowired
+  private UserServiceImpl userService;
 
   @Test
   public void test() {

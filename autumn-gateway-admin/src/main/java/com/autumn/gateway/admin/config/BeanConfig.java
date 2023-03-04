@@ -13,6 +13,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class BeanConfig {
 
+  static {
+    System.out.println(1111);
+  }
+
   @Bean
   public MapperFactory mapperFactory() {
     return new MapperFactory();

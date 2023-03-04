@@ -2,10 +2,10 @@ package com.autumn.gateway;
 
 import com.autumn.gateway.component.policy.provider.enums.RedisKeyEnums;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
 
-import javax.annotation.Resource;
 import java.util.UUID;
 
 /**
@@ -17,7 +17,8 @@ import java.util.UUID;
 @SpringBootTest
 public class PluginPolicyInsertMainTest {
 
-  @Resource private RedisTemplate redisTemplate;
+  @Autowired
+  private RedisTemplate redisTemplate;
 
   @Test
   public void test() {

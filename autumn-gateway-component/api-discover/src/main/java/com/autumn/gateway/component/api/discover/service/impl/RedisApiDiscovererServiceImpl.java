@@ -9,9 +9,9 @@ import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.beanutils.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.*;
 import java.util.stream.Collectors;
 /**
@@ -24,7 +24,8 @@ import java.util.stream.Collectors;
 @Service
 public class RedisApiDiscovererServiceImpl implements IApiDiscovererService {
 
-  @Resource private RedisService<String> redisService;
+  @Autowired
+  private RedisService<String> redisService;
 
   /**
    * Returns a collection of deployed {@link Api}s.

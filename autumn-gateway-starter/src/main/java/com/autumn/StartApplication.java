@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.autumn.gateway;
+package com.autumn;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -28,10 +28,11 @@ import org.springframework.context.annotation.FilterType;
  */
 @SpringBootApplication
 @ComponentScan(
-    excludeFilters =
+basePackages = {"com.autumn.gateway.core","com.autumn.gateway"},
+        excludeFilters =
         @ComponentScan.Filter(
-            type = FilterType.REGEX,
-            pattern = {"com.autumn.gateway.starter.api.*"}))
+                type = FilterType.REGEX,
+                pattern = {"com.autumn.gateway.starter.api.*"}))
 public class StartApplication {
 
   public static void main(String[] args) {

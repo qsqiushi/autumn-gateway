@@ -3,10 +3,9 @@ package com.autumn.gateway.starter.api.config;
 import com.autumn.gateway.api.plugin.core.api.pojo.Api;
 import com.autumn.gateway.api.plugin.core.invoker.EndpointInvoker;
 import com.autumn.gateway.api.plugin.core.service.IFailInvokerManagerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.Resource;
 
 /**
  * @author qiushi
@@ -16,10 +15,10 @@ import javax.annotation.Resource;
  */
 @Component
 public class ApiContextConfig {
+  @Autowired
+  private Api api;
 
-  @Resource private Api api;
-
-  @Resource private IFailInvokerManagerService failInvokerManagerService;
+  @Autowired private IFailInvokerManagerService failInvokerManagerService;
 
   /**
    * 预留 目前按照插件策略获取API 服务

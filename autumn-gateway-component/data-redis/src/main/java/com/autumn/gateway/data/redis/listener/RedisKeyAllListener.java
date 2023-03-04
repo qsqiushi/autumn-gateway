@@ -2,13 +2,12 @@ package com.autumn.gateway.data.redis.listener;
 
 import com.autumn.gateway.data.redis.service.RedisService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.connection.MessageListener;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.Resource;
 
 /**
  * @author qiushi
@@ -23,7 +22,8 @@ public class RedisKeyAllListener extends KeyAllEventMessageListener {
   @Value("${spring.redis.database:0}")
   private Integer database;
 
-  @Resource private RedisService<Object> redisService;
+  @Autowired
+  private RedisService<Object> redisService;
   /**
    * Creates new {@link MessageListener} for {@code __keyevent@*__:set} messages.
    *

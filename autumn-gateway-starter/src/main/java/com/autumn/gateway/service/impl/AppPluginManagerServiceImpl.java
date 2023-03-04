@@ -4,10 +4,9 @@ import com.autumn.gateway.core.service.plugin.AbstractAppPluginManagerService;
 import com.autumn.gateway.core.service.policy.provider.IAppPolicyProvider;
 import com.autumn.gateway.core.service.policy.provider.IBaseBizPolicyProvider;
 import com.autumn.gateway.core.service.policy.provider.IPluginPolicyProvider;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
 
 /**
  * @author qiushi
@@ -18,11 +17,12 @@ import javax.annotation.Resource;
 @Service
 public class AppPluginManagerServiceImpl extends AbstractAppPluginManagerService {
 
-  @Resource private ApplicationContext applicationContext;
+  @Autowired
+  private ApplicationContext applicationContext;
 
-  @Resource private IAppPolicyProvider appPolicyProvider;
+  @Autowired private IAppPolicyProvider appPolicyProvider;
 
-  @Resource private IPluginPolicyProvider pluginPolicyProvider;
+  @Autowired private IPluginPolicyProvider pluginPolicyProvider;
 
   /**
    * <获得策略提供者>

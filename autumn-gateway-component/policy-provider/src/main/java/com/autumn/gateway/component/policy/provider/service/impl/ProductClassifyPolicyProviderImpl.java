@@ -7,14 +7,14 @@ import com.autumn.gateway.component.policy.provider.util.PolicyUtil;
 import com.autumn.gateway.core.service.policy.provider.IProductClassifyPolicyProvider;
 import com.autumn.gateway.data.redis.service.RedisService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
  * @author qiushi
- * @program  autumn
+ * @program autumn
  * @description 产品分类策略
  * @since 2021-08-12:15:49
  */
@@ -22,23 +22,24 @@ import java.util.List;
 @Service
 public class ProductClassifyPolicyProviderImpl implements IProductClassifyPolicyProvider {
 
-  @Resource private RedisService<String> redisService;
+    @Autowired
+    private RedisService<String> redisService;
 
-  /**
-   * <获取插件信息>
-   *
-   * @return : io.vertx.core.json.JsonArray
-   * @author qiushi
-   * @updator qiushi
-   * @since 2021/8/13 16:47
-   */
-  @Override
-  public List<PluginConfigInfo> getPluginsInfo(String... bizId) {
+    /**
+     * <获取插件信息>
+     *
+     * @return : io.vertx.core.json.JsonArray
+     * @author qiushi
+     * @updator qiushi
+     * @since 2021/8/13 16:47
+     */
+    @Override
+    public List<PluginConfigInfo> getPluginsInfo(String... bizId) {
 
-    String key = String.format(RedisKeyEnums.AUTUMN_PRODUCT_CLASSIFY_POLICY.getKeyPattern(), bizId);
+        String key = String.format(RedisKeyEnums.AUTUMN_PRODUCT_CLASSIFY_POLICY.getKeyPattern(), bizId);
 
-    String plugins = redisService.hget(key, SysPolicyConstants.PLUGIN);
+        String plugins = redisService.hget(key, SysPolicyConstants.PLUGIN);
 
-    return PolicyUtil.explainPluginConfig(plugins);
-  }
+        return PolicyUtil.explainPluginConfig(plugins);
+    }
 }

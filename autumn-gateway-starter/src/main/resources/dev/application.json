@@ -7,53 +7,13 @@
   },
   "componentPolicy": [
     {
-      "componentId": "cluster",
-      "param": {
-        "zookeeperHosts": "10.133.92.157",
-        "rootPath": "autumn.vertx",
-        "retry": {
-          "initialSleepTime": 3000,
-          "maxTimes": 3
-        }
-      }
+      "componentId": "cluster"
     },
     {
-      "componentId": "redisPolicyProviderProvider",
-      "param": {
-        "redis": {
-          "nodes": [
-            "10.133.92.157:6379"
-          ],
-          "password": "redis@2021",
-          "database": 0,
-          "timeout": 5000,
-          "lettuce": {
-            "maxTotal": 8,
-            "maxIdle": 8,
-            "maxWait": -1,
-            "minIdle": 0
-          }
-        }
-      }
+      "componentId": "redisPolicyProviderProvider"
     },
     {
-      "componentId": "apiDiscoverRedis",
-      "param": {
-        "redis": {
-          "nodes": [
-            "10.133.92.157:6379"
-          ],
-          "password": "redis@2021",
-          "database": 0,
-          "timeout": 5000,
-          "lettuce": {
-            "maxTotal": 8,
-            "maxIdle": 8,
-            "maxWait": -1,
-            "minIdle": 0
-          }
-        }
-      }
+      "componentId": "apiDiscoverRedis"
     },
     {
       "componentId": "apiRegister",
@@ -79,31 +39,12 @@
       }
     },
     {
-      "componentId": "cache",
-      "param": {
-        "redis": {
-          "nodes": [
-            "10.133.92.157:6379"
-          ],
-          "password": "redis@2021",
-          "database": 0,
-          "timeout": 5000,
-          "lettuce": {
-            "maxTotal": 8,
-            "maxIdle": 8,
-            "maxWait": -1,
-            "minIdle": 0
-          }
-        }
-      }
+      "componentId": "cache"
     },
     {
       "componentId": "syncZk",
       "param": {
-        "zkServer": "10.133.92.157:2181",
-        "sessionTimeOut": 10000,
-        "path": "/autumn/sync",
-        "interval": 50000
+        "path": "/autumn/sync"
       }
     }
   ]

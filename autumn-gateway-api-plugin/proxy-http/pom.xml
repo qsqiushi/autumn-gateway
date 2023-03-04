@@ -12,8 +12,6 @@
     <artifactId>proxy-http</artifactId>
 
     <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
         <plugin.id>httpProxy</plugin.id>
         <plugin.class>com.autumn.gateway.api.plugin.proxy.http.pf4j.Pf4jPlugin</plugin.class>
         <plugin.version>1.0.0</plugin.version>

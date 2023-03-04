@@ -20,10 +20,10 @@ import com.autumn.gateway.service.IApiContextManagerService;
 import com.autumn.gateway.service.IPf4jPluginManagerService;
 import io.vertx.core.Future;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.Collection;
 
 /**
@@ -36,25 +36,26 @@ import java.util.Collection;
 @Slf4j
 public class SyncReactorEventListener implements EventListener<SyncReactorEvent, SyncMsg> {
 
-  @Resource private IApiDiscovererService apiDiscovererService;
+  @Autowired
+  private IApiDiscovererService apiDiscovererService;
 
-  @Resource private EventManager eventManager;
+  @Autowired private EventManager eventManager;
 
-  @Resource private AbstractAppPluginManagerService appPluginManagerService;
+  @Autowired private AbstractAppPluginManagerService appPluginManagerService;
 
-  @Resource private AbstractSysPluginManagerService sysPluginManagerService;
+  @Autowired private AbstractSysPluginManagerService sysPluginManagerService;
 
-  @Resource private AbstractProductPluginManagerService productPluginManagerService;
+  @Autowired private AbstractProductPluginManagerService productPluginManagerService;
 
-  @Resource private AbstractProductClassifyPluginManagerService productClassifyPluginManagerService;
+  @Autowired private AbstractProductClassifyPluginManagerService productClassifyPluginManagerService;
 
-  @Resource private IServerManager serverManager;
+  @Autowired private IServerManager serverManager;
 
-  @Resource private IPf4jPluginManagerService pf4jPluginManagerService;
+  @Autowired private IPf4jPluginManagerService pf4jPluginManagerService;
 
-  @Resource private IApiRegisterService apiRegisterService;
+  @Autowired private IApiRegisterService apiRegisterService;
 
-  @Resource private IApiContextManagerService apiContextManagerService;
+  @Autowired private IApiContextManagerService apiContextManagerService;
 
   @Override
   public void onEvent(Event<SyncReactorEvent, SyncMsg> event) {

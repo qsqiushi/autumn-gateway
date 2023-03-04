@@ -8,9 +8,9 @@ import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonObject;
 import io.vertx.spi.cluster.zookeeper.ZookeeperClusterManager;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
@@ -25,7 +25,8 @@ public class VertxManagerServiceImpl implements IVertxManagerService {
 
   private static Vertx vertx;
 
-  @Resource private ZookeeperProperties zookeeperProperties;
+  @Autowired
+  private ZookeeperProperties zookeeperProperties;
 
   /**
    * <获取唯一的vertx实例>

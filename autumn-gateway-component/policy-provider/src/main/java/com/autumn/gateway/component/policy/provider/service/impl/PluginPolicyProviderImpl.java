@@ -5,9 +5,8 @@ import com.autumn.gateway.component.policy.provider.enums.RedisKeyEnums;
 import com.autumn.gateway.core.service.policy.provider.IPluginPolicyProvider;
 import com.autumn.gateway.data.redis.service.RedisService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
 
 /**
  * @author qiushi
@@ -19,7 +18,8 @@ import javax.annotation.Resource;
 @Service
 public class PluginPolicyProviderImpl implements IPluginPolicyProvider {
 
-  @Resource private RedisService<String> redisService;
+  @Autowired
+  private RedisService<String> redisService;
 
   /**
    * <根据ID查询策略>

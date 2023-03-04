@@ -3,9 +3,9 @@ package com.autumn.gateway;
 import com.autumn.gateway.data.redis.service.RedisService;
 import io.vertx.core.json.Json;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import javax.annotation.Resource;
 import java.util.Set;
 
 /**
@@ -17,7 +17,8 @@ import java.util.Set;
 @SpringBootTest
 public class ServiceTest {
 
-  @Resource private RedisService<String> redisService;
+  @Autowired
+  private RedisService<String> redisService;
 
   @Test
   public void test() {

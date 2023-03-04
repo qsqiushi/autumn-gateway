@@ -1,11 +1,11 @@
 package com.autumn.gateway.server.vertx.config;
 
 import com.autumn.gateway.core.handler.IGlobalApiHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
 
 /**
  * @author qiushi
@@ -15,7 +15,8 @@ import javax.annotation.Resource;
  */
 @Component
 public class ServerConfig {
-  @Resource public IGlobalApiHandler globalApiHandler;
+  @Autowired
+  public IGlobalApiHandler globalApiHandler;
 
   @Value("${autumn.server.port:80}")
   private Integer port;

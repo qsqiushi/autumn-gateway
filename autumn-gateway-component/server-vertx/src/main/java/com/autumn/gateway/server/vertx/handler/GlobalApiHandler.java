@@ -1,14 +1,5 @@
 package com.autumn.gateway.server.vertx.handler;
 
-import java.util.List;
-import java.util.UUID;
-
-import javax.annotation.Resource;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.logging.log4j.ThreadContext;
-import org.springframework.stereotype.Component;
-
 import com.autumn.gateway.api.plugin.core.api.handler.ReactorHandler;
 import com.autumn.gateway.api.plugin.core.api.pojo.Api;
 import com.autumn.gateway.common.enums.ResultCode;
@@ -19,7 +10,6 @@ import com.autumn.gateway.core.handler.UrlHandler;
 import com.autumn.gateway.core.service.IListableRouterManagerService;
 import com.autumn.gateway.core.service.register.IApiRegisterService;
 import com.google.gson.Gson;
-
 import io.netty.handler.codec.http.HttpHeaderValues;
 import io.vertx.core.MultiMap;
 import io.vertx.core.Vertx;
@@ -29,6 +19,13 @@ import io.vertx.httpproxy.HttpProxy;
 import io.vertx.httpproxy.ProxyOptions;
 import io.vertx.httpproxy.cache.CacheOptions;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
+import org.apache.logging.log4j.ThreadContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.UUID;
 
 /**
  * <>
@@ -42,19 +39,19 @@ public class GlobalApiHandler implements IGlobalApiHandler {
 
 	private static final String APPLICATION_GRPC = "application/grpc";
 
-	@Resource
+	@Autowired
 	private IApiRegisterService apiRegister;
 
-	@Resource
+	@Autowired
 	private ReactorHandlerManager reactorHandlerManager;
 
-	@Resource
+	@Autowired
 	private IListableRouterManagerService listableRouterManagerService;
 
-	@Resource
+	@Autowired
 	private Gson gson;
 
-	@Resource
+	@Autowired
 	private Vertx vertx;
 
 	@Override
