@@ -7,11 +7,10 @@ import io.vertx.core.VertxOptions;
 import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonObject;
 import io.vertx.spi.cluster.zookeeper.ZookeeperClusterManager;
+import java.util.concurrent.atomic.AtomicReference;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * @program autumn
@@ -22,11 +21,10 @@ import java.util.concurrent.atomic.AtomicReference;
 @Slf4j
 @Service
 public class VertxManagerServiceImpl implements IVertxManagerService {
-
+  
   private static Vertx vertx;
 
-  @Autowired
-  private ZookeeperProperties zookeeperProperties;
+  @Autowired private ZookeeperProperties zookeeperProperties;
 
   /**
    * <获取唯一的vertx实例>
@@ -65,25 +63,25 @@ public class VertxManagerServiceImpl implements IVertxManagerService {
     ZookeeperClusterManager mgr = new ZookeeperClusterManager();
 
     zookeeperProperties
-            .getClusterConfig()
-            .setZookeeperHosts(zookeeperProperties.getClusterConfig().getZookeeperHosts());
+        .getClusterConfig()
+        .setZookeeperHosts(zookeeperProperties.getClusterConfig().getZookeeperHosts());
 
     mgr.setConfig(new JsonObject(Json.encode(zookeeperProperties.getClusterConfig())));
 
     VertxOptions options = new VertxOptions().setClusterManager(mgr);
 
     Vertx.clusteredVertx(
-            options,
-            res -> {
-              if (res.succeeded()) {
-                vertxAtomicReference.set(res.result());
-                log.info("zk vertx register success");
-              } else {
-                log.error(
-                        "zk vertx register failed,return a non clustered instance using default options");
-                vertxAtomicReference.set(Vertx.vertx());
-              }
-            });
+        options,
+        res -> {
+          if (res.succeeded()) {
+            vertxAtomicReference.set(res.result());
+            log.info("zk vertx register success");
+          } else {
+            log.error(
+                "zk vertx register failed,return a non clustered instance using default options");
+            vertxAtomicReference.set(Vertx.vertx());
+          }
+        });
 
     while (vertxAtomicReference.get() == null) {
       continue;
@@ -91,4 +89,3 @@ public class VertxManagerServiceImpl implements IVertxManagerService {
     return vertxAtomicReference.get();
   }
 }
-

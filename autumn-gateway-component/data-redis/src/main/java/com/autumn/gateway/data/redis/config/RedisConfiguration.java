@@ -26,44 +26,45 @@ import javax.annotation.PostConstruct;
 @Configuration
 public class RedisConfiguration {
 
-  @PostConstruct
-  public void init() {
-    log.info("Loading AirLook Component Redis Configuration");
-  }
-
-  @Bean
-  @ConditionalOnMissingBean(name = "redisTemplate")
-  public RedisTemplate<String, Object> redisTemplate(
-      RedisConnectionFactory redisConnectionFactory) {
-    RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
-    redisTemplate.setConnectionFactory(redisConnectionFactory);
-    Jackson2JsonRedisSerializer<Object> serializer = new Jackson2JsonRedisSerializer(Object.class);
-    ObjectMapper objectMapper = new ObjectMapper();
-    objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-    // instead of  objectMapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL)
-    objectMapper.activateDefaultTyping(
-        LaissezFaireSubTypeValidator.instance, ObjectMapper.DefaultTyping.NON_FINAL);
-    serializer.setObjectMapper(objectMapper);
-    // 设置key和value的序列化规则
-    redisTemplate.setKeySerializer(new GenericToStringSerializer<>(Object.class));
-    redisTemplate.setValueSerializer(new GenericToStringSerializer<>(Object.class));
-    // 设置hashKey和hashValue的序列化规则
-    redisTemplate.setHashKeySerializer(new GenericToStringSerializer<>(Object.class));
-    redisTemplate.setHashValueSerializer(new GenericToStringSerializer<>(Object.class));
-    // 设置支持事务
-    redisTemplate.setEnableTransactionSupport(false);
-
-    redisTemplate.afterPropertiesSet();
-    if (log.isDebugEnabled()) {
-      log.debug("成功创建redisTemplate");
+    @PostConstruct
+    public void init() {
+        log.info("Loading AirLook Component Redis Configuration");
     }
-    return redisTemplate;
-  }
 
-  @Bean
-  RedisMessageListenerContainer container(RedisConnectionFactory connectionFactory) {
-    RedisMessageListenerContainer container = new RedisMessageListenerContainer();
-    container.setConnectionFactory(connectionFactory);
-    return container;
-  }
+    @Bean
+    @ConditionalOnMissingBean(name = "redisTemplate")
+    public RedisTemplate<String, Object> redisTemplate(
+            RedisConnectionFactory redisConnectionFactory) {
+        RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
+        redisTemplate.setConnectionFactory(redisConnectionFactory);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+        // instead of  objectMapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL)
+        objectMapper.activateDefaultTyping(
+                LaissezFaireSubTypeValidator.instance, ObjectMapper.DefaultTyping.NON_FINAL);
+        Jackson2JsonRedisSerializer<Object> serializer = new Jackson2JsonRedisSerializer(objectMapper, Object.class);
+
+        // 设置key和value的序列化规则
+        redisTemplate.setKeySerializer(new GenericToStringSerializer<>(Object.class));
+        redisTemplate.setValueSerializer(new GenericToStringSerializer<>(Object.class));
+        // 设置hashKey和hashValue的序列化规则
+        redisTemplate.setHashKeySerializer(new GenericToStringSerializer<>(Object.class));
+        redisTemplate.setHashValueSerializer(new GenericToStringSerializer<>(Object.class));
+        // 设置支持事务
+        redisTemplate.setEnableTransactionSupport(false);
+
+        redisTemplate.afterPropertiesSet();
+        if (log.isDebugEnabled()) {
+            log.debug("成功创建redisTemplate");
+        }
+        return redisTemplate;
+    }
+
+    @Bean
+    RedisMessageListenerContainer container(RedisConnectionFactory connectionFactory) {
+        RedisMessageListenerContainer container = new RedisMessageListenerContainer();
+        container.setConnectionFactory(connectionFactory);
+        return container;
+    }
 }

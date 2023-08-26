@@ -1,9 +1,12 @@
 package com.autumn.gateway.admin.controller;
 
+import com.autumn.gateway.admin.user.entity.UserInfo;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
 
 /**
  * @author qiushi
@@ -13,14 +16,20 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/api")
-//@Api(tags = "API接口")
+// @Api(tags = "API接口")
 public class ApiController {
 
-    @GetMapping("/test")
-    //@ApiOperation(value = "测试接口", notes = "测试")
-    public String test(HttpServletRequest request) {
-        return "knife4j";
-    }
+  @Resource private UserInfo userInfo;
 
+  @GetMapping("/test/null")
+  // @ApiOperation(value = "测试接口", notes = "测试")
+  public String testNull(HttpServletRequest request) {
+    return (userInfo == null) + "";
+  }
 
+  @GetMapping("/test")
+  // @ApiOperation(value = "测试接口", notes = "测试")
+  public String test(HttpServletRequest request) {
+    return "knife4j";
+  }
 }

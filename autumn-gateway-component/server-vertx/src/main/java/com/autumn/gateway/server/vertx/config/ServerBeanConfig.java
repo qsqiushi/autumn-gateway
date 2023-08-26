@@ -4,7 +4,7 @@ import com.autumn.gateway.core.service.cluster.IVertxManagerService;
 import io.vertx.core.Vertx;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * @author qiushi
@@ -12,14 +12,18 @@ import org.springframework.stereotype.Component;
  * @description
  * @since 2022-07-18 16:25
  */
-@Component
+@Configuration
 public class ServerBeanConfig {
 
-	@Autowired
-	private IVertxManagerService vertxManagerService;
+  private IVertxManagerService vertxManagerService;
 
-	@Bean
-	public Vertx getVertx() {
-		return vertxManagerService.getVertx();
-	}
+  @Autowired
+  public ServerBeanConfig(IVertxManagerService vertxManagerService) {
+    this.vertxManagerService = vertxManagerService;
+  }
+
+  @Bean
+  public Vertx getVertx() {
+    return vertxManagerService.getVertx();
+  }
 }

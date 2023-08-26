@@ -10,6 +10,17 @@ spring:
     url: jdbc:mysql://localhost:3306/autumn_gateway?characterEncoding=utf8&useSSL=true
     username: root
     password: 7yueningxi@
+  data:
+    redis:
+      port: 33003
+      password: sitApiwgredis@2022
+      host: sit-mc1-mw.qm.cn
+      database: 4
+
+mybatis:
+  configuration:
+    # 配置打印sql语句到控制台
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 server:
   port: 8080

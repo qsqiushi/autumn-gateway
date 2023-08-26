@@ -6,17 +6,17 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.0.2</version>
+        <version>3.0.9</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>autumn-gateway-admin</artifactId>
-
+    <version>0.0.1-SNAPSHOT</version>
     <properties>
-        <spring.cloud-version>2022.0.1</spring.cloud-version>
+        <spring.cloud-version>2022.0.4</spring.cloud-version>
         <org.projectlombok.version>1.18.24</org.projectlombok.version>
-        <fluent.mybatis.version>1.9.8</fluent.mybatis.version>
+        <fluent.mybatis.version>1.9.9</fluent.mybatis.version>
     </properties>
 
     <dependencyManagement>
@@ -37,7 +37,7 @@
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>2.2.2</version>
+            <version>3.0.2</version>
             <exclusions>
                 <exclusion>
                     <artifactId>spring-boot-starter-logging</artifactId>
@@ -60,7 +60,6 @@
             <scope>provided</scope>
             <version>${fluent.mybatis.version}</version>
         </dependency>
-
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -96,29 +95,18 @@
         </dependency>
 
 
+        <!-- https://mvnrepository.com/artifact/com.mysql/mysql-connector-j -->
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <scope>runtime</scope>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>8.0.32</version>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-
-<!--        <dependency>-->
-<!--            <groupId>io.springfox</groupId>-->
-<!--            <artifactId>springfox-boot-starter</artifactId>-->
-<!--            <version>3.0.0</version>-->
-<!--        </dependency>-->
-
-<!--        <dependency>-->
-<!--            <groupId>com.github.xiaoymin</groupId>-->
-<!--            <artifactId>knife4j-spring-boot-starter</artifactId>-->
-<!--            <version>3.0.3</version>-->
-<!--        </dependency>-->
-
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -135,31 +123,7 @@
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
-            <scope>test</scope>
         </dependency>
-
-
-<!--        &lt;!&ndash;强制排除 logback 的依赖&ndash;&gt;-->
-<!--        &lt;!&ndash;连接器只能有一个：slf4j-log4j12与logback-basic不能共存 &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>ch.qos.logback</groupId>-->
-<!--            <artifactId>logback-classic</artifactId>-->
-<!--            <version>999-not-exist</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>ch.qos.logback</groupId>-->
-<!--            <artifactId>logback-core</artifactId>-->
-<!--            <version>999-not-exist-v1</version>-->
-<!--        </dependency>-->
-
-
-        <dependency>
-            <groupId>cn.kstry.framework</groupId>
-            <artifactId>kstry-core</artifactId>
-            <version>1.0.11</version>
-        </dependency>
-
-
     </dependencies>
 
     <build>

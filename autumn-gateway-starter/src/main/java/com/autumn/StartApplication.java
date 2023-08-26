@@ -28,11 +28,10 @@ import org.springframework.context.annotation.FilterType;
  */
 @SpringBootApplication
 @ComponentScan(
-basePackages = {"com.autumn.gateway.core","com.autumn.gateway"},
-        excludeFilters =
+    excludeFilters =
         @ComponentScan.Filter(
-                type = FilterType.REGEX,
-                pattern = {"com.autumn.gateway.starter.api.*"}))
+            type = FilterType.REGEX,
+            pattern = {"com.autumn.gateway.starter.api.*"}))
 public class StartApplication {
 
   public static void main(String[] args) {
